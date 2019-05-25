@@ -58,7 +58,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: de18de7a3b3fc064596be2db2c81e582, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -91,9 +91,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 50297575698771544}
   enemy: {fileID: 0}
+  swordPrefab: {fileID: 1928534583453292, guid: 340bbac1fe3eb864bab6bad7cea29206,
+    type: 2}
+  sword: {fileID: 0}
+  atk: 
+  def: 
+  dashTime: 1
+  dashImpulse: 150
   minForce: 100
   maxForce: 140
-  G: 6
+  blockPushBackForce: 100
+  blockAttackPushBackForce: 120
+  damagePushBackForce: 140
+  attackPushBackForce: 80
+  splitForce: 100
+  G: 5
 --- !u!212 &212977560534923666
 SpriteRenderer:
   m_ObjectHideFlags: 1

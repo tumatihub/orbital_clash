@@ -4,17 +4,77 @@ using UnityEngine;
 
 public class Attractor : MonoBehaviour {
 
+    public enum AttackResult { BLOCK, ATTACK, DAMAGED };
+
     public Rigidbody2D rb;
     public Attractor enemy;
+    public GameObject swordPrefab;
+    public GameObject sword;
 
-    
+    public string atk;
+    public string def;
+
+    public float dashTime = 1;
+    public float dashImpulse = 100;
+    private bool dashing = false;
+    private float dashCooldown = 0;
+
+    private bool blocking = false;
+
     public float minForce = 100, maxForce = 140;
+    public float blockPushBackForce = 50;
+    public float blockAttackPushBackForce = 100;
+    public float damagePushBackForce = 140;
+    public float attackPushBackForce = 20;
+    public float splitForce = 100;
 
     public float G = 6;
+
+    private void Start()
+    {
+        sword = Instantiate(swordPrefab);
+        sword.transform.position = transform.position;
+        sword.transform.parent = transform;
+    }
+
+    private void Update()
+    {
+        //Lookat
+        transform.right = enemy.transform.position - transform.position;
+
+        if (Input.GetButtonDown(atk) && !dashing)
+        {
+            dashing = true;
+            dashCooldown = dashTime;
+
+            Vector2 direction = enemy.transform.position - transform.position;
+            rb.AddForce(direction.normalized * dashImpulse, ForceMode2D.Impulse);
+        }
+
+        if (Input.GetButtonDown(def))
+        {
+            blocking = true;
+        }
+
+        if (Input.GetButtonUp(def))
+        {
+            blocking = false;
+        }
+
+        if (dashCooldown > 0)
+        {
+            dashCooldown -= Time.deltaTime;
+        } else
+        {
+            dashing = false;
+        }
+    }
 
     private void FixedUpdate()
     {
         Attract(enemy);
+        
+        //transform.LookAt(enemy.transform);
     }
 
     void Attract(Attractor objToAttract)
@@ -31,24 +91,91 @@ public class Attractor : MonoBehaviour {
         rbToAttract.AddForce(force);
     }
 
+    public AttackResult Attacked()
+    {
+        if (blocking)
+        {
+            BlockAttack();
+            return AttackResult.BLOCK;
+        } else
+        {
+            DamagePushBack();
+            return AttackResult.DAMAGED;
+        }
+    }
+
+    private void DamagePushBack()
+    {
+        rb.velocity = Vector2.zero;
+        float forceMagnitude = damagePushBackForce;
+        rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
+    }
+
+    private void BlockAttack()
+    {
+        rb.velocity = Vector2.zero;
+        float forceMagnitude = blockAttackPushBackForce;
+        rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Rigidbody2D enemyRb = collision.rigidbody;
+        StartCoroutine("Split");
 
-        Vector2 direction = rb.position - enemyRb.position;
-        float forceMagnitude = minForce;
-        if (Random.value > .8)
+        if (dashing)
         {
-            forceMagnitude = maxForce;
+            dashing = false;
+            var result = enemy.Attacked();
+            
+            if ( result == AttackResult.BLOCK )
+            {
+                BlockPushBack();
+            }
+            else if(result == AttackResult.DAMAGED)
+            {
+                AttackPushBack();
+            }
         }
 
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        StopCoroutine("Split");
+    }
+    
+
+    private IEnumerator Split()
+    {
+        float forceMagnitude = splitForce;
+        yield return new WaitForSeconds(1);
+        rb.velocity = Vector2.zero;
+        rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
+        StopCoroutine("Split");
+    }
+
+    private void AttackPushBack()
+    {
+        float forceMagnitude = attackPushBackForce;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
+    }
+
+    private void BlockPushBack()
+    {
+        rb.velocity = Vector2.zero;
+        float forceMagnitude = blockPushBackForce;
+        rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
+    }
+
+    private Vector2 GetDir()
+    {
+        Vector2 direction = transform.position - enemy.transform.position;
+        
         float rotationAddX = Random.Range(-0.1f, 0.1f);
         float rotationAddY = Random.Range(-0.1f, 0.1f);
 
         direction = new Vector2(direction.x + rotationAddX, direction.y + rotationAddY);
-        print(forceMagnitude);
 
-        
-        rb.AddForce(direction.normalized * forceMagnitude, ForceMode2D.Impulse);
+        return direction;
     }
 }
