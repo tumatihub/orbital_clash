@@ -8,7 +8,7 @@ public class Attractor : MonoBehaviour {
     public Attractor enemy;
 
     
-    public float minForce = 1, maxForce = 2;
+    public float minForce = 100, maxForce = 140;
 
     public float G = 6;
 
