@@ -16,10 +16,10 @@ public class Attractor : MonoBehaviour {
 
     public float dashTime = 1;
     public float dashImpulse = 100;
-    private bool dashing = false;
-    private float dashCooldown = 0;
+    [HideInInspector] public bool dashing = false;
+    [HideInInspector] public float dashCooldown = 0;
 
-    private bool blocking = false;
+    [HideInInspector] public bool blocking = false;
 
     public float minForce = 100, maxForce = 140;
     public float blockPushBackForce = 50;
@@ -42,32 +42,7 @@ public class Attractor : MonoBehaviour {
         //Lookat
         transform.right = enemy.transform.position - transform.position;
 
-        if (Input.GetButtonDown(atk) && !dashing)
-        {
-            dashing = true;
-            dashCooldown = dashTime;
-
-            Vector2 direction = enemy.transform.position - transform.position;
-            rb.AddForce(direction.normalized * dashImpulse, ForceMode2D.Impulse);
-        }
-
-        if (Input.GetButtonDown(def))
-        {
-            blocking = true;
-        }
-
-        if (Input.GetButtonUp(def))
-        {
-            blocking = false;
-        }
-
-        if (dashCooldown > 0)
-        {
-            dashCooldown -= Time.deltaTime;
-        } else
-        {
-            dashing = false;
-        }
+        
     }
 
     private void FixedUpdate()
