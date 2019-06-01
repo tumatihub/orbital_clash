@@ -29,6 +29,7 @@ public class Attractor : MonoBehaviour {
     public float splitForce = 100;
 
     public float G = 6;
+    public float K = 10;
 
     private void Start()
     {
@@ -59,8 +60,9 @@ public class Attractor : MonoBehaviour {
         Vector2 direction = rb.position - rbToAttract.position;
         float distance = direction.magnitude;
 
-        float forceMagnitude = G * (rb.mass * rbToAttract.mass) / distance;
-        //print(forceMagnitude);
+        //float forceMagnitude = G * (rb.mass * rbToAttract.mass) / distance;
+        float forceMagnitude = K * distance;
+
         Vector2 force = direction.normalized * forceMagnitude;
 
         rbToAttract.AddForce(force);

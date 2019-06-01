@@ -5,12 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     private Attractor attractor;
+    private SpriteRenderer sprite;
 
     public GameObject border;
 
+    public Color blockingColor;
+    public Color dashingColor;
+    public Color neutralColor;
+
 	// Use this for initialization
 	void Start () {
-        attractor = GetComponent<Attractor>();    		
+        attractor = GetComponent<Attractor>();
+        sprite = attractor.GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +38,24 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonUp(attractor.def))
         {
             attractor.blocking = false;
+        }
+
+        UpdateColor();
+    }
+
+    private void UpdateColor()
+    {
+        if (attractor.blocking)
+        {
+            sprite.color = blockingColor;
+        }
+        else if (attractor.dashing)
+        {
+            sprite.color = dashingColor;
+        }
+        else
+        {
+            sprite.color = neutralColor;
         }
     }
 

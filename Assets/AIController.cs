@@ -5,17 +5,23 @@ using UnityEngine;
 public class AIController : MonoBehaviour {
 
     private Attractor attractor;
+    private SpriteRenderer sprite;
 
     public GameObject border;
-    public float distaceToAct = 15;
-    private float delayBetweenAction = .3f;
+    public float distanceToAct = 15;
+    private float delayBetweenAction = .7f;
     private float countDown = 0;
-    private float chanceToBlock = .3f;
-    private float distanceToGoAgress = 20;
+    private float chanceToBlock = .6f;
+    public float distanceToGoAgress = 20;
+
+    public Color blockingColor;
+    public Color dashingColor;
+    public Color neutralColor;
 
     // Use this for initialization
     void Start () {
         attractor = GetComponent<Attractor>();
+        sprite = attractor.GetComponent<SpriteRenderer>();
     }
 	
 	// Update is called once per frame
@@ -24,14 +30,30 @@ public class AIController : MonoBehaviour {
         {
             print("Acting!");
             float dist = GetDistanceToPlayer(attractor);
-            if (dist <= distaceToAct)
+            if (dist <= distanceToAct)
             {
                 ChooseAction();
                 countDown = delayBetweenAction;
             }
         }
         countDown -= Time.deltaTime;
+        UpdateColor();
+    }
 
+    private void UpdateColor()
+    {
+        if (attractor.blocking)
+        {
+            sprite.color = blockingColor;
+        }
+        else if (attractor.dashing)
+        {
+            sprite.color = dashingColor;
+        }
+        else
+        {
+            sprite.color = neutralColor;
+        }
     }
 
     private float GetClosestDistanceToBorder()
@@ -68,7 +90,7 @@ public class AIController : MonoBehaviour {
         }
 
         float rand = Random.value;
-        if (rand <= chanceToBlock)
+        if (rand <= chance)
         {
             attractor.blocking = true;
             attractor.dashing = false;
@@ -89,6 +111,7 @@ public class AIController : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
+
         Collider2D[] colliders = border.GetComponents<Collider2D>();
 
         float distance = 0;
@@ -105,6 +128,15 @@ public class AIController : MonoBehaviour {
             }
         }
         Gizmos.color = Color.red;
+        if (distance <= distanceToGoAgress)
+        {
+            Gizmos.DrawLine(transform.position, closest);
+        }
+        if (attractor != null && GetDistanceToPlayer(attractor) <= distanceToAct)
+        {
+            Gizmos.DrawLine(transform.position, attractor.enemy.transform.position);
+        }
+
         Gizmos.DrawWireSphere(closest, 1.0f);
 
     }

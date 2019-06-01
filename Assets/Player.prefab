@@ -71,7 +71,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1500932272551256}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: de18de7a3b3fc064596be2db2c81e582, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -98,14 +98,18 @@ MonoBehaviour:
   def: 
   dashTime: 1
   dashImpulse: 150
+  dashing: 0
+  dashCooldown: 0
+  blocking: 0
   minForce: 100
   maxForce: 140
-  blockPushBackForce: 100
-  blockAttackPushBackForce: 120
-  damagePushBackForce: 140
-  attackPushBackForce: 80
+  blockPushBackForce: 50
+  blockAttackPushBackForce: 80
+  damagePushBackForce: 120
+  attackPushBackForce: 20
   splitForce: 100
-  G: 5
+  G: 7
+  K: 30
 --- !u!212 &212977560534923666
 SpriteRenderer:
   m_ObjectHideFlags: 1

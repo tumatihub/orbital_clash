@@ -267,6 +267,11 @@ Prefab:
       propertyPath: m_Color.b
       value: 0.9716981
       objectReference: {fileID: 0}
+    - target: {fileID: 212977560534923666, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0
@@ -664,6 +669,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   border: {fileID: 642044464}
+  blockingColor: {r: 0, g: 0.08931412, b: 0.4245283, a: 1}
+  dashingColor: {r: 0, g: 0.9424863, b: 1, a: 1}
+  neutralColor: {r: 0, g: 0.532712, b: 1, a: 1}
 --- !u!1 &903457203
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +956,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   border: {fileID: 642044464}
   distaceToAct: 5
+  distanceToGoAgress: 5
+  blockingColor: {r: 0.46226418, g: 0, b: 0.0190771, a: 1}
+  dashingColor: {r: 1, g: 0.5108446, b: 0.4198113, a: 1}
+  neutralColor: {r: 0.8867924, g: 0.12130654, b: 0.12130654, a: 1}
 --- !u!1 &1825784180
 GameObject:
   m_ObjectHideFlags: 0
