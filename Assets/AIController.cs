@@ -92,14 +92,14 @@ public class AIController : MonoBehaviour {
         float rand = Random.value;
         if (rand <= chance)
         {
-            attractor.blocking = true;
-            attractor.dashing = false;
+            attractor.Block();
+            
             print("Blocking");
         }
         else
         {
-            attractor.blocking = false;
-            attractor.dashing = true;
+            attractor.ReleaseBlock();
+            attractor.Dash();
             print("Dashing");
         }
     }

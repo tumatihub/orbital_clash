@@ -14,7 +14,7 @@ public class Attractor : MonoBehaviour {
     public string atk;
     public string def;
 
-    public float dashTime = 1;
+    public float dashTime = .5f;
     public float dashImpulse = 100;
     [HideInInspector] public bool dashing = false;
     [HideInInspector] public float dashCooldown = 0;
@@ -43,6 +43,13 @@ public class Attractor : MonoBehaviour {
         //Lookat
         transform.right = enemy.transform.position - transform.position;
 
+        if (dashCooldown >= 0)
+        {
+            dashCooldown -= Time.deltaTime;
+        } else
+        {
+            dashing = false;
+        }
         
     }
 
@@ -66,6 +73,28 @@ public class Attractor : MonoBehaviour {
         Vector2 force = direction.normalized * forceMagnitude;
 
         rbToAttract.AddForce(force);
+    }
+
+    public void Dash()
+    {
+        if (!dashing && !blocking)
+        {
+            dashing = true;
+            dashCooldown = dashTime;
+
+            Vector2 direction = enemy.transform.position - transform.position;
+            rb.AddForce(direction.normalized * dashImpulse, ForceMode2D.Impulse);
+        }
+    }
+
+    public void Block()
+    {
+        blocking = true;
+    }
+
+    public void ReleaseBlock()
+    {
+        blocking = false;
     }
 
     public AttackResult Attacked()
@@ -101,7 +130,7 @@ public class Attractor : MonoBehaviour {
 
         if (dashing)
         {
-            dashing = false;
+            //dashing = false;
             var result = enemy.Attacked();
             
             if ( result == AttackResult.BLOCK )

@@ -21,26 +21,41 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown(attractor.atk) && !attractor.dashing)
-        {
-            attractor.dashing = true;
-            attractor.dashCooldown = attractor.dashTime;
+        //if (Input.GetButtonDown(attractor.atk) && !attractor.dashing)
+        //{
+        //    attractor.dashing = true;
+        //    attractor.dashCooldown = attractor.dashTime;
 
-            Vector2 direction = attractor.enemy.transform.position - transform.position;
-            attractor.rb.AddForce(direction.normalized * attractor.dashImpulse, ForceMode2D.Impulse);
-        }
+        //    Vector2 direction = attractor.enemy.transform.position - transform.position;
+        //    attractor.rb.AddForce(direction.normalized * attractor.dashImpulse, ForceMode2D.Impulse);
+        //}
 
-        if (Input.GetButtonDown(attractor.def))
-        {
-            attractor.blocking = true;
-        }
+        //if (Input.GetButtonDown(attractor.def))
+        //{
+        //    attractor.blocking = true;
+        //}
 
-        if (Input.GetButtonUp(attractor.def))
-        {
-            attractor.blocking = false;
-        }
+        //if (Input.GetButtonUp(attractor.def))
+        //{
+        //    attractor.blocking = false;
+        //}
 
         UpdateColor();
+    }
+
+    public void Dash()
+    {
+        attractor.Dash();
+    }
+
+    public void Block()
+    {
+        attractor.Block();
+    }
+
+    public void ReleaseBlock()
+    {
+        attractor.ReleaseBlock();
     }
 
     private void UpdateColor()
