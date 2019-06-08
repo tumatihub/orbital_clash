@@ -9,6 +9,7 @@ public class SliderUpdater : MonoBehaviour {
 
     public void UpdateSliderValue()
     {
+        //oi
         gameObject.GetComponent<Text>().text = slider.value.ToString();
     }
 }
