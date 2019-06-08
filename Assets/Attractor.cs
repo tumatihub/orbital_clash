@@ -11,6 +11,8 @@ public class Attractor : MonoBehaviour {
     public GameObject swordPrefab;
     public GameObject sword;
 
+    private GameManager gameManager;
+
     public string atk;
     public string def;
 
@@ -30,6 +32,23 @@ public class Attractor : MonoBehaviour {
 
     public float G = 6;
     public float K = 10;
+
+    private void Awake()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        // Setup
+
+        dashTime = gameManager.dashTime;
+        dashImpulse = gameManager.dashImpulse;
+        blockPushBackForce = gameManager.blockPushBackForce;
+        blockAttackPushBackForce = gameManager.blockAttackPushBackForce;
+        damagePushBackForce = gameManager.damagePushBackForce;
+        attackPushBackForce = gameManager.attackPushBackForce;
+        splitForce = gameManager.splitForce;
+        K = gameManager.K;
+
+    }
 
     private void Start()
     {
