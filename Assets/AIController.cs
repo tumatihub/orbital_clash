@@ -27,8 +27,7 @@ public class AIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (countDown <= 0)
-        {
-            print("Acting!");
+        {;
             float dist = GetDistanceToPlayer(attractor);
             if (dist <= distanceToAct)
             {
@@ -93,14 +92,11 @@ public class AIController : MonoBehaviour {
         if (rand <= chance)
         {
             attractor.Block();
-            
-            print("Blocking");
         }
         else
         {
             attractor.ReleaseBlock();
             attractor.Dash();
-            print("Dashing");
         }
     }
 

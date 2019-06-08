@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //if (Input.GetButtonDown(attractor.atk) && !attractor.dashing)
+        //if (Input.GetButtonDown(attractor.atk) && !attractor.dashing && !attractor.blocking)
         //{
         //    attractor.dashing = true;
         //    attractor.dashCooldown = attractor.dashTime;
