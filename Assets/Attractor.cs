@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attractor : MonoBehaviour {
 
@@ -10,6 +11,11 @@ public class Attractor : MonoBehaviour {
     public Attractor enemy;
     public GameObject swordPrefab;
     public GameObject sword;
+
+    public Slider lifeBar;
+    public Color lifeBarColor;
+
+    private float life;
 
     private GameManager gameManager;
 
@@ -28,6 +34,7 @@ public class Attractor : MonoBehaviour {
     public float blockAttackPushBackForce = 100;
     public float damagePushBackForce = 140;
     public float attackPushBackForce = 20;
+    public float dashOnDashPushBack;
     public float splitForce = 100;
 
     public float G = 6;
@@ -45,6 +52,7 @@ public class Attractor : MonoBehaviour {
         blockAttackPushBackForce = gameManager.blockAttackPushBackForce;
         damagePushBackForce = gameManager.damagePushBackForce;
         attackPushBackForce = gameManager.attackPushBackForce;
+        dashOnDashPushBack = gameManager.dashOnDashPushBack;
         splitForce = gameManager.splitForce;
         K = gameManager.K;
 
@@ -55,6 +63,11 @@ public class Attractor : MonoBehaviour {
         sword = Instantiate(swordPrefab);
         sword.transform.position = transform.position;
         sword.transform.parent = transform;
+
+        // Setup lifeBar
+        lifeBar.fillRect.GetComponent<Image>().color = lifeBarColor;
+        life = gameManager.maxLife;
+        UpdateLifeBar();
     }
 
     private void Update()
@@ -78,6 +91,11 @@ public class Attractor : MonoBehaviour {
         
         //transform.LookAt(enemy.transform);
     }
+
+    void UpdateLifeBar()
+    {
+        lifeBar.value = life / gameManager.maxLife;
+    } 
 
     void Attract(Attractor objToAttract)
     {
@@ -118,6 +136,11 @@ public class Attractor : MonoBehaviour {
 
     public AttackResult Attacked()
     {
+        if (dashing)
+        {
+            DashOnDashPushBack();
+            return AttackResult.ATTACK;
+        }
         if (blocking)
         {
             BlockAttack();
@@ -125,14 +148,34 @@ public class Attractor : MonoBehaviour {
         } else
         {
             DamagePushBack();
+            ChangeLife(gameManager.dashDamage);
             return AttackResult.DAMAGED;
         }
     }
+
+    private void ChangeLife(float amount)
+    {
+        float newLifeValue = life - amount;
+        life = Mathf.Clamp(newLifeValue, 0, gameManager.maxLife);
+        UpdateLifeBar();
+        if (life == 0)
+        {
+            gameManager.RestartLevel();
+        }
+    }
+
 
     private void DamagePushBack()
     {
         rb.velocity = Vector2.zero;
         float forceMagnitude = damagePushBackForce;
+        rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
+    }
+
+    private void DashOnDashPushBack()
+    {
+        rb.velocity = Vector2.zero;
+        float forceMagnitude = dashOnDashPushBack;
         rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
     }
 
@@ -145,20 +188,27 @@ public class Attractor : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine("Split");
-
-        if (dashing)
+        if (collision.gameObject.tag == "Player")
         {
-            //dashing = false;
-            var result = enemy.Attacked();
-            
-            if ( result == AttackResult.BLOCK )
+            StartCoroutine("Split");
+
+            if (dashing)
             {
-                BlockPushBack();
-            }
-            else if(result == AttackResult.DAMAGED)
-            {
-                AttackPushBack();
+                //dashing = false;
+                var result = enemy.Attacked();
+
+                if (result == AttackResult.BLOCK)
+                {
+                    BlockPushBack();
+                }
+                else if (result == AttackResult.DAMAGED)
+                {
+                    AttackPushBack();
+                }
+                else if (result == AttackResult.ATTACK)
+                {
+                    DashOnDashPushBack();
+                }
             }
         }
 

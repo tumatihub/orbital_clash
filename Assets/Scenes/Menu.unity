@@ -339,6 +339,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashTime: 0.5
+  dashImpulse: 100
+  blockPushBackForce: 50
+  blockAttackPushBackForce: 100
+  damagePushBackForce: 140
+  attackPushBackForce: 20
+  dashOnDashPushBack: 150
+  splitForce: 100
+  K: 20
+  maxLife: 500
+  dashDamage: 50
 --- !u!224 &364360406
 RectTransform:
   m_ObjectHideFlags: 0
