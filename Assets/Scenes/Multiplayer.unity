@@ -379,6 +379,48 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &139974308
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1855125929}
+    m_Modifications:
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!114 &170561377 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
@@ -819,7 +861,7 @@ Camera:
   far clip plane: 5000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.531028
+  orthographic size: 6.7527676
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2073,6 +2115,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1673530144
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 407106056}
+    m_Modifications:
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1674062939
 GameObject:
   m_ObjectHideFlags: 0

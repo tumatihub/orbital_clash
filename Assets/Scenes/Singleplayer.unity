@@ -536,6 +536,48 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 123408206}
   m_Script: {fileID: 11500000, guid: 725867d55051333479cdcf2a5911740c, type: 3}
+--- !u!1001 &297547761
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1409535864}
+    m_Modifications:
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &329520943
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +939,7 @@ Camera:
   far clip plane: 5000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.531028
+  orthographic size: 6.7527676
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1388,6 +1430,48 @@ MonoBehaviour:
   blockingColor: {r: 0, g: 0.08931412, b: 0.4245283, a: 1}
   dashingColor: {r: 0, g: 0.9424863, b: 1, a: 1}
   neutralColor: {r: 0, g: 0.532712, b: 1, a: 1}
+--- !u!1001 &846496137
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 407106056}
+    m_Modifications:
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741750836138902, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41703939542054943bbf94b2ec5eac7c, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &903457203
 GameObject:
   m_ObjectHideFlags: 0
