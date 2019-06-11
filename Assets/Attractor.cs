@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Attractor : MonoBehaviour {
 
-    public enum AttackResult { BLOCK, ATTACK, DAMAGED };
+    public enum AttackResult { BLOCK, ATTACK, DAMAGED, PARRY};
 
     public Rigidbody2D rb;
     public Attractor enemy;
@@ -28,6 +28,14 @@ public class Attractor : MonoBehaviour {
     [HideInInspector] public float dashCooldown = 0;
 
     [HideInInspector] public bool blocking = false;
+    [HideInInspector] public bool parrying = false;
+    public float parryingTime = 1f;
+    private float parryingCountdown = 0f;
+    private SpriteRenderer parrySprite;
+
+    public bool stunned = false;
+    private float stunTime = 1.5f;
+    private float stunCountdown = 0;
 
     public float minForce = 100, maxForce = 140;
     public float blockPushBackForce = 50;
@@ -64,6 +72,8 @@ public class Attractor : MonoBehaviour {
         sword.transform.position = transform.position;
         sword.transform.parent = transform;
 
+        parrySprite = transform.Find("Parry").GetComponent<SpriteRenderer>();
+
         // Setup lifeBar
         lifeBar.fillRect.GetComponent<Image>().color = lifeBarColor;
         life = gameManager.maxLife;
@@ -78,9 +88,30 @@ public class Attractor : MonoBehaviour {
         if (dashCooldown >= 0)
         {
             dashCooldown -= Time.deltaTime;
-        } else
+        }
+        else
         {
             dashing = false;
+        }
+
+        if (parryingCountdown >= 0)
+        {
+            parryingCountdown -= Time.deltaTime;
+            StartParryingEffect();
+        }
+        else
+        {
+            parrying = false;
+            EndParryingEffect();
+        }
+
+        if (stunCountdown >= 0)
+        {
+            stunCountdown -= Time.deltaTime;
+        }
+        else
+        {
+            stunned = false;
         }
         
     }
@@ -114,7 +145,7 @@ public class Attractor : MonoBehaviour {
 
     public void Dash()
     {
-        if (!dashing && !blocking)
+        if (!dashing && !blocking && !stunned)
         {
             dashing = true;
             dashCooldown = dashTime;
@@ -126,7 +157,22 @@ public class Attractor : MonoBehaviour {
 
     public void Block()
     {
-        blocking = true;
+        if (!stunned)
+        {
+            blocking = true;
+            parrying = true;
+            parryingCountdown = parryingTime;
+        }
+    }
+
+    private void StartParryingEffect()
+    {
+        parrySprite.enabled = true;
+    }
+
+    private void EndParryingEffect()
+    {
+        parrySprite.enabled = false;
     }
 
     public void ReleaseBlock()
@@ -140,6 +186,11 @@ public class Attractor : MonoBehaviour {
         {
             DashOnDashPushBack();
             return AttackResult.ATTACK;
+        }
+        if (parrying)
+        {
+            BlockAttack();
+            return AttackResult.PARRY;
         }
         if (blocking)
         {
@@ -164,6 +215,13 @@ public class Attractor : MonoBehaviour {
         }
     }
 
+    private void Stunned()
+    {
+        stunned = true;
+        stunCountdown = stunTime;
+        dashing = false;
+        ReleaseBlock();
+    }
 
     private void DamagePushBack()
     {
@@ -208,6 +266,11 @@ public class Attractor : MonoBehaviour {
                 else if (result == AttackResult.ATTACK)
                 {
                     DashOnDashPushBack();
+                }
+                else if (result == AttackResult.PARRY)
+                {
+                    BlockPushBack();
+                    Stunned();
                 }
             }
         }

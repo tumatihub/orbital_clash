@@ -11,7 +11,7 @@ public class AIController : MonoBehaviour {
     public float distanceToAct = 15;
     private float delayBetweenAction = .7f;
     private float countDown = 0;
-    private float chanceToBlock = .6f;
+    private float chanceToBlock = .4f;
     public float distanceToGoAgress = 20;
 
     public Color blockingColor;
@@ -49,6 +49,10 @@ public class AIController : MonoBehaviour {
         {
             sprite.color = dashingColor;
         }
+        else if (attractor.stunned)
+        {
+            sprite.color = Color.black;
+        }
         else
         {
             sprite.color = neutralColor;
@@ -79,7 +83,7 @@ public class AIController : MonoBehaviour {
     {
         float chance = chanceToBlock;
         float dist = GetClosestDistanceToBorder();
-        if (dist <= distanceToGoAgress)
+        if (dist <= distanceToGoAgress || attractor.stunned)
         {
             chance = .01f;
         }

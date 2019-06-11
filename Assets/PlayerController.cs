@@ -21,24 +21,22 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //if (Input.GetButtonDown(attractor.atk) && !attractor.dashing && !attractor.blocking)
-        //{
-        //    attractor.dashing = true;
-        //    attractor.dashCooldown = attractor.dashTime;
+        #if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR
+        if (Input.GetButtonDown(attractor.atk) && !attractor.dashing && !attractor.blocking)
+        {
+            attractor.Dash();
+        }
 
-        //    Vector2 direction = attractor.enemy.transform.position - transform.position;
-        //    attractor.rb.AddForce(direction.normalized * attractor.dashImpulse, ForceMode2D.Impulse);
-        //}
+        if (Input.GetButtonDown(attractor.def))
+        {
+            attractor.Block();
+        }
 
-        //if (Input.GetButtonDown(attractor.def))
-        //{
-        //    attractor.blocking = true;
-        //}
-
-        //if (Input.GetButtonUp(attractor.def))
-        //{
-        //    attractor.blocking = false;
-        //}
+        if (Input.GetButtonUp(attractor.def))
+        {
+            attractor.ReleaseBlock();
+        }
+        #endif
 
         UpdateColor();
     }
@@ -67,6 +65,10 @@ public class PlayerController : MonoBehaviour {
         else if (attractor.dashing)
         {
             sprite.color = dashingColor;
+        }
+        else if (attractor.stunned)
+        {
+            sprite.color = Color.black;
         }
         else
         {
