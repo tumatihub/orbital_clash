@@ -37,6 +37,9 @@ public class Attractor : MonoBehaviour {
     private float stunTime = 1.5f;
     private float stunCountdown = 0;
 
+    private float awayCountdown = 0;
+    private float timeBeforeGravityStart = 3;
+
     public float minForce = 100, maxForce = 140;
     public float blockPushBackForce = 50;
     public float blockAttackPushBackForce = 100;
@@ -45,7 +48,7 @@ public class Attractor : MonoBehaviour {
     public float dashOnDashPushBack;
     public float splitForce = 100;
 
-    public float G = 6;
+    public float G = 1f;
     public float K = 10;
 
     private void Awake()
@@ -113,6 +116,11 @@ public class Attractor : MonoBehaviour {
         {
             stunned = false;
         }
+
+        if (awayCountdown >= 0)
+        {
+            awayCountdown -= Time.deltaTime;
+        }
         
     }
 
@@ -135,12 +143,24 @@ public class Attractor : MonoBehaviour {
         Vector2 direction = rb.position - rbToAttract.position;
         float distance = direction.magnitude;
 
-        //float forceMagnitude = G * (rb.mass * rbToAttract.mass) / distance;
         float forceMagnitude = K * distance;
+
+        if (awayCountdown <= 0)
+        {
+            forceMagnitude += G * (rb.mass * rbToAttract.mass) / distance;
+        }
 
         Vector2 force = direction.normalized * forceMagnitude;
 
         rbToAttract.AddForce(force);
+    }
+
+    public void Dodge(Vector2 dir)
+    {
+        Vector2 dirToEnemy = GetDirToEnemy();
+        rb.velocity = Vector2.zero;
+        Vector2 direction = dir - (Vector2.Dot(dir, dirToEnemy)/ Vector2.Dot(dirToEnemy, dirToEnemy) * dirToEnemy);
+        rb.AddForce(direction.normalized * 50, ForceMode2D.Impulse);
     }
 
     public void Dash()
@@ -279,6 +299,7 @@ public class Attractor : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision)
     {
         StopCoroutine("Split");
+        awayCountdown = timeBeforeGravityStart;
     }
     
 
@@ -313,6 +334,13 @@ public class Attractor : MonoBehaviour {
         float rotationAddY = Random.Range(-0.1f, 0.1f);
 
         direction = new Vector2(direction.x + rotationAddX, direction.y + rotationAddY);
+
+        return direction;
+    }
+
+    private Vector2 GetDirToEnemy()
+    {
+        Vector2 direction = enemy.transform.position - transform.position;
 
         return direction;
     }

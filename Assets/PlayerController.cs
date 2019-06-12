@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour {
     public Color dashingColor;
     public Color neutralColor;
 
+    private Vector2 touchStart;
+    private float minTouchDistance = 10f;
+
 	// Use this for initialization
 	void Start () {
         attractor = GetComponent<Attractor>();
@@ -36,9 +39,66 @@ public class PlayerController : MonoBehaviour {
         {
             attractor.ReleaseBlock();
         }
+
+        // Simular swipe com as setas do teclado
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            attractor.Dodge(new Vector2(0, 1));
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            attractor.Dodge(new Vector2(1, 0));
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            attractor.Dodge(new Vector2(0, -1));
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            attractor.Dodge(new Vector2(-1, 0));
+        }
+
+        #elif UNITY_IOS || UNITY_ANDROID
+        
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.touches[0];
+            GetSwipeDir(touch);
+        }
+
+        
         #endif
 
         UpdateColor();
+    }
+    
+    private void GetSwipeDir(Touch touch)
+    {
+        if (touch.phase == TouchPhase.Began)
+        {
+            touchStart = touch.position;
+        }
+        else if (touch.phase == TouchPhase.Ended)
+        {
+            Vector2 touchEnd = touch.position;
+            float xDist = Mathf.Abs(touchEnd.x - touchStart.x);
+            float yDist = Mathf.Abs(touchEnd.y - touchStart.y);
+            if (xDist >= minTouchDistance || yDist >= minTouchDistance)
+            {
+                float x = Mathf.Sign(touchEnd.x - touchStart.x);
+                float y = Mathf.Sign(touchEnd.y - touchStart.y);
+
+                if (xDist > yDist)
+                {
+                    y = 0;
+                }
+                else
+                {
+                    x = 0;
+                }
+                attractor.Dodge(new Vector2(x, y));
+            }
+        }
     }
 
     public void Dash()

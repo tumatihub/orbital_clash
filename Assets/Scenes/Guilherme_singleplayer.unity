@@ -1643,7 +1643,7 @@ MonoBehaviour:
   splitForce: 100
   K: 20
   maxLife: 500
-  dashDamage: 200
+  dashDamage: 10
 --- !u!4 &1312903790
 Transform:
   m_ObjectHideFlags: 0
