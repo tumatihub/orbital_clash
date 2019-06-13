@@ -39,6 +39,10 @@ public class Attractor : MonoBehaviour {
 
     private float awayCountdown = 0;
     private float timeBeforeGravityStart = 3;
+    
+    private Vector2 previousPos = Vector2.zero;
+    [SerializeField]
+    private float stopOrbitForce = 1000;
 
     public float minForce = 100, maxForce = 140;
     public float blockPushBackForce = 50;
@@ -127,7 +131,7 @@ public class Attractor : MonoBehaviour {
     private void FixedUpdate()
     {
         Attract(enemy);
-        
+        StopOrbit();
         //transform.LookAt(enemy.transform);
     }
 
@@ -135,6 +139,26 @@ public class Attractor : MonoBehaviour {
     {
         lifeBar.value = life / gameManager.maxLife;
     } 
+
+    void StopOrbit()
+    {
+        if (previousPos == Vector2.zero)
+        {
+            previousPos = GetDirFromEnemy();
+            return;
+        }
+
+        Vector2 actualPos = GetDirFromEnemy();
+        Vector2 diffPos = previousPos - actualPos;
+
+        Vector2 resultForce = diffPos - (Vector2.Dot(diffPos, actualPos) / Vector2.Dot(actualPos, actualPos)) * actualPos;
+        print(resultForce.magnitude);
+        if (resultForce.magnitude >= .2f)
+        {
+            rb.AddForce(resultForce * stopOrbitForce);
+        }
+        previousPos = actualPos;
+    }
 
     void Attract(Attractor objToAttract)
     {
@@ -144,11 +168,10 @@ public class Attractor : MonoBehaviour {
         float distance = direction.magnitude;
 
         float forceMagnitude = K * distance;
-
-        if (awayCountdown <= 0)
-        {
-            forceMagnitude += G * (rb.mass * rbToAttract.mass) / distance;
-        }
+        //if (awayCountdown <= 0)
+        //{
+        //    forceMagnitude += G * (rb.mass * rbToAttract.mass) / distance;
+        //}
 
         Vector2 force = direction.normalized * forceMagnitude;
 
@@ -337,7 +360,12 @@ public class Attractor : MonoBehaviour {
 
         return direction;
     }
+    private Vector2 GetDirFromEnemy()
+    {
+        Vector2 direction = transform.position - enemy.transform.position;
 
+        return direction;
+    }
     private Vector2 GetDirToEnemy()
     {
         Vector2 direction = enemy.transform.position - transform.position;
