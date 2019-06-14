@@ -37,6 +37,13 @@ public class Attractor : MonoBehaviour {
     private float stunTime = 1.5f;
     private float stunCountdown = 0;
 
+    private float awayCountdown = 0;
+    private float timeBeforeGravityStart = 3;
+    
+    private Vector2 previousPos = Vector2.zero;
+    [SerializeField]
+    private float stopOrbitForce = 1000;
+
     public float minForce = 100, maxForce = 140;
     public float blockPushBackForce = 50;
     public float blockAttackPushBackForce = 100;
@@ -45,7 +52,7 @@ public class Attractor : MonoBehaviour {
     public float dashOnDashPushBack;
     public float splitForce = 100;
 
-    public float G = 6;
+    public float G = 1f;
     public float K = 10;
 
     private void Awake()
@@ -71,7 +78,7 @@ public class Attractor : MonoBehaviour {
         sword = Instantiate(swordPrefab);
         sword.transform.position = transform.position;
         sword.transform.parent = transform;
-
+        
         parrySprite = transform.Find("Parry").GetComponent<SpriteRenderer>();
 
         // Setup lifeBar
@@ -113,13 +120,18 @@ public class Attractor : MonoBehaviour {
         {
             stunned = false;
         }
+
+        if (awayCountdown >= 0)
+        {
+            awayCountdown -= Time.deltaTime;
+        }
         
     }
 
     private void FixedUpdate()
     {
         Attract(enemy);
-        
+        StopOrbit();
         //transform.LookAt(enemy.transform);
     }
 
@@ -128,6 +140,26 @@ public class Attractor : MonoBehaviour {
         lifeBar.value = life / gameManager.maxLife;
     } 
 
+    void StopOrbit()
+    {
+        if (previousPos == Vector2.zero)
+        {
+            previousPos = GetDirFromEnemy();
+            return;
+        }
+
+        Vector2 actualPos = GetDirFromEnemy();
+        Vector2 diffPos = previousPos - actualPos;
+
+        Vector2 resultForce = diffPos - (Vector2.Dot(diffPos, actualPos) / Vector2.Dot(actualPos, actualPos)) * actualPos;
+
+        if (resultForce.magnitude >= .2f)
+        {
+            rb.AddForce(resultForce * stopOrbitForce);
+        }
+        previousPos = actualPos;
+    }
+
     void Attract(Attractor objToAttract)
     {
         Rigidbody2D rbToAttract = objToAttract.rb;
@@ -135,12 +167,23 @@ public class Attractor : MonoBehaviour {
         Vector2 direction = rb.position - rbToAttract.position;
         float distance = direction.magnitude;
 
-        //float forceMagnitude = G * (rb.mass * rbToAttract.mass) / distance;
         float forceMagnitude = K * distance;
+        //if (awayCountdown <= 0)
+        //{
+        //    forceMagnitude += G * (rb.mass * rbToAttract.mass) / distance;
+        //}
 
         Vector2 force = direction.normalized * forceMagnitude;
 
         rbToAttract.AddForce(force);
+    }
+
+    public void Dodge(Vector2 dir)
+    {
+        Vector2 dirToEnemy = GetDirToEnemy();
+        rb.velocity = Vector2.zero;
+        Vector2 direction = dir - (Vector2.Dot(dir, dirToEnemy)/ Vector2.Dot(dirToEnemy, dirToEnemy) * dirToEnemy);
+        rb.AddForce(direction.normalized * 50, ForceMode2D.Impulse);
     }
 
     public void Dash()
@@ -279,6 +322,7 @@ public class Attractor : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision)
     {
         StopCoroutine("Split");
+        awayCountdown = timeBeforeGravityStart;
     }
     
 
@@ -313,6 +357,18 @@ public class Attractor : MonoBehaviour {
         float rotationAddY = Random.Range(-0.1f, 0.1f);
 
         direction = new Vector2(direction.x + rotationAddX, direction.y + rotationAddY);
+
+        return direction;
+    }
+    private Vector2 GetDirFromEnemy()
+    {
+        Vector2 direction = transform.position - enemy.transform.position;
+
+        return direction;
+    }
+    private Vector2 GetDirToEnemy()
+    {
+        Vector2 direction = enemy.transform.position - transform.position;
 
         return direction;
     }
