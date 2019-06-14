@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
     private Attractor attractor;
     private SpriteRenderer sprite;
+
+    public Camera cam;
 
     public GameObject border;
 
@@ -15,6 +18,10 @@ public class PlayerController : MonoBehaviour {
 
     private Vector2 touchStart;
     private float minTouchDistance = 10f;
+    [Range(0,1)] public float touchMinX;
+    [Range(0,1)] public float touchMaxX;
+
+    private Vector2 lastMousePos;
 
 	// Use this for initialization
 	void Start () {
@@ -81,22 +88,26 @@ public class PlayerController : MonoBehaviour {
         else if (touch.phase == TouchPhase.Ended)
         {
             Vector2 touchEnd = touch.position;
-            float xDist = Mathf.Abs(touchEnd.x - touchStart.x);
-            float yDist = Mathf.Abs(touchEnd.y - touchStart.y);
-            if (xDist >= minTouchDistance || yDist >= minTouchDistance)
+            Vector2 viewportTouch = cam.ScreenToViewportPoint(touchEnd);
+            if (viewportTouch.x >= touchMinX && viewportTouch.x < touchMaxX)
             {
-                float x = Mathf.Sign(touchEnd.x - touchStart.x);
-                float y = Mathf.Sign(touchEnd.y - touchStart.y);
+                float xDist = Mathf.Abs(touchEnd.x - touchStart.x);
+                float yDist = Mathf.Abs(touchEnd.y - touchStart.y);
+                if (xDist >= minTouchDistance || yDist >= minTouchDistance)
+                {
+                    float x = Mathf.Sign(touchEnd.x - touchStart.x);
+                    float y = Mathf.Sign(touchEnd.y - touchStart.y);
 
-                if (xDist > yDist)
-                {
-                    y = 0;
+                    if (xDist > yDist)
+                    {
+                        y = 0;
+                    }
+                    else
+                    {
+                        x = 0;
+                    }
+                    attractor.Dodge(new Vector2(x, y));
                 }
-                else
-                {
-                    x = 0;
-                }
-                attractor.Dodge(new Vector2(x, y));
             }
         }
     }
@@ -155,6 +166,10 @@ public class PlayerController : MonoBehaviour {
         }
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(closest, 1.0f);
+        if (cam != null)
+        {
+            Gizmos.DrawLine(cam.ViewportToWorldPoint(new Vector3(touchMinX, 0.5f, 0)), cam.ViewportToWorldPoint(new Vector3(touchMaxX, 0.5f, 0)));
 
+        }
     }
 }

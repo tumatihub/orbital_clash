@@ -148,8 +148,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 455.5, y: -100}
-  m_SizeDelta: {x: 88.5, y: 82.6}
+  m_AnchoredPosition: {x: 330, y: -100}
+  m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &114741588
 MonoBehaviour:
@@ -467,8 +467,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: 100}
-  m_SizeDelta: {x: 88.5, y: 82.6}
+  m_AnchoredPosition: {x: -330, y: 100}
+  m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &462129521
 MonoBehaviour:
@@ -721,7 +721,7 @@ Prefab:
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.020042
       objectReference: {fileID: 0}
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
@@ -731,12 +731,12 @@ Prefab:
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 921.4
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 37.899994
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
@@ -766,6 +766,11 @@ Prefab:
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224571089808624208, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
+        type: 2}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -861,7 +866,7 @@ Camera:
   far clip plane: 5000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.7527676
+  orthographic size: 5.8378377
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -925,8 +930,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 455.5, y: 100}
-  m_SizeDelta: {x: 88.5, y: 82.6}
+  m_AnchoredPosition: {x: 330, y: 100}
+  m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &557869703
 MonoBehaviour:
@@ -1356,8 +1361,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 160, y: 60}
+  m_AnchoredPosition: {x: 0, y: -30}
+  m_SizeDelta: {x: 68.8, y: 38.2}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &685487088
 MonoBehaviour:
@@ -1461,10 +1466,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba61fe7e7a989f4c9bbcfe14a6f9e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 519420031}
   border: {fileID: 642044464}
   blockingColor: {r: 0, g: 0.08931412, b: 0.4245283, a: 1}
   dashingColor: {r: 0, g: 0.9424863, b: 1, a: 1}
   neutralColor: {r: 0, g: 0.532712, b: 1, a: 1}
+  touchMinX: 0.5
+  touchMaxX: 0.85
 --- !u!1 &770883584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,8 +1920,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: -100}
-  m_SizeDelta: {x: 88.5, y: 82.6}
+  m_AnchoredPosition: {x: -330, y: -100}
+  m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1484854669
 MonoBehaviour:
@@ -2237,7 +2245,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2528,6 +2536,16 @@ Prefab:
       propertyPath: lifeBarColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+        type: 2}
+      propertyPath: atk
+      value: P2_atk
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+        type: 2}
+      propertyPath: def
+      value: P2_def
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0
@@ -2558,10 +2576,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba61fe7e7a989f4c9bbcfe14a6f9e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 519420031}
   border: {fileID: 642044464}
   blockingColor: {r: 0.5, g: 0.040094346, b: 0.040094346, a: 1}
   dashingColor: {r: 1, g: 0.6179246, b: 0.6179246, a: 1}
   neutralColor: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
+  touchMinX: 0.15
+  touchMaxX: 0.5
 --- !u!1 &1909280302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,7 +2708,7 @@ Prefab:
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.01001
       objectReference: {fileID: 0}
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
@@ -2697,12 +2718,12 @@ Prefab:
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 921.4
+      value: 799.98
       objectReference: {fileID: 0}
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 37.900024
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 224572909598479252, guid: 973c965ffb8419d4fb6ef2296ac98bbb,
         type: 2}

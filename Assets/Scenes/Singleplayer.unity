@@ -939,7 +939,7 @@ Camera:
   far clip plane: 5000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.7527676
+  orthographic size: 5.8378377
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1426,10 +1426,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba61fe7e7a989f4c9bbcfe14a6f9e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 519420031}
   border: {fileID: 642044464}
   blockingColor: {r: 0, g: 0.08931412, b: 0.4245283, a: 1}
   dashingColor: {r: 0, g: 0.9424863, b: 1, a: 1}
   neutralColor: {r: 0, g: 0.532712, b: 1, a: 1}
+  touchMinX: 0.5
+  touchMaxX: 0.8
 --- !u!1001 &846496137
 Prefab:
   m_ObjectHideFlags: 0

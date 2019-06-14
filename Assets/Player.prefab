@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114077023048739218}
   - component: {fileID: 50297575698771544}
   - component: {fileID: 58980098694040408}
-  - component: {fileID: 120453379145535972}
+  - component: {fileID: 120573277953055510}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -107,6 +107,7 @@ MonoBehaviour:
   parrying: 0
   parryingTime: 0.5
   stunned: 0
+  stopOrbitForce: 1000
   minForce: 100
   maxForce: 140
   blockPushBackForce: 50
@@ -117,7 +118,7 @@ MonoBehaviour:
   splitForce: 100
   G: 7
   K: 30
---- !u!120 &120453379145535972
+--- !u!120 &120573277953055510
 LineRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,7 +133,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,7 +164,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.31313133
         inSlope: 0
         outSlope: 0
         tangentMode: 0

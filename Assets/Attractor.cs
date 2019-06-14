@@ -78,7 +78,7 @@ public class Attractor : MonoBehaviour {
         sword = Instantiate(swordPrefab);
         sword.transform.position = transform.position;
         sword.transform.parent = transform;
-
+        
         parrySprite = transform.Find("Parry").GetComponent<SpriteRenderer>();
 
         // Setup lifeBar
@@ -152,7 +152,7 @@ public class Attractor : MonoBehaviour {
         Vector2 diffPos = previousPos - actualPos;
 
         Vector2 resultForce = diffPos - (Vector2.Dot(diffPos, actualPos) / Vector2.Dot(actualPos, actualPos)) * actualPos;
-        print(resultForce.magnitude);
+
         if (resultForce.magnitude >= .2f)
         {
             rb.AddForce(resultForce * stopOrbitForce);
