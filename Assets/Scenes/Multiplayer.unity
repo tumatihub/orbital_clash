@@ -1900,7 +1900,7 @@ MonoBehaviour:
   dashingColor: {r: 0, g: 0.9424863, b: 1, a: 1}
   neutralColor: {r: 0, g: 0.532712, b: 1, a: 1}
   touchMinX: 0.5
-  touchMaxX: 0.85
+  touchMaxX: 0.9
 --- !u!1 &770883584
 GameObject:
   m_ObjectHideFlags: 0
@@ -4657,7 +4657,7 @@ MonoBehaviour:
   blockingColor: {r: 0.5, g: 0.040094346, b: 0.040094346, a: 1}
   dashingColor: {r: 1, g: 0.6179246, b: 0.6179246, a: 1}
   neutralColor: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
-  touchMinX: 0.15
+  touchMinX: 0.1
   touchMaxX: 0.5
 --- !u!1 &1909280302
 GameObject:

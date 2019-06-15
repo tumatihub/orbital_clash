@@ -29,17 +29,18 @@ public class Attractor : MonoBehaviour {
 
     [HideInInspector] public bool blocking = false;
     [HideInInspector] public bool parrying = false;
-    public float parryingTime = 1f;
-    private float parryingCountdown = 0f;
+    public float parryingFXTime = .2f;
+    private float parryingFXCountdown = 0f;
+    public float parryingCooldownTime = 1f;
+    private float parryingCooldown = 0f;
     private SpriteRenderer parrySprite;
 
     public bool stunned = false;
     private float stunTime = 1.5f;
     private float stunCountdown = 0;
 
-    private float awayCountdown = 0;
-    private float timeBeforeGravityStart = 3;
-    
+    private bool collidingWithPlayer = false;
+
     private Vector2 previousPos = Vector2.zero;
     [SerializeField]
     private float stopOrbitForce = 1000;
@@ -92,7 +93,7 @@ public class Attractor : MonoBehaviour {
         //Lookat
         transform.right = enemy.transform.position - transform.position;
 
-        if (dashCooldown >= 0)
+        if (dashCooldown > 0)
         {
             dashCooldown -= Time.deltaTime;
         }
@@ -101,29 +102,30 @@ public class Attractor : MonoBehaviour {
             dashing = false;
         }
 
-        if (parryingCountdown >= 0)
+        if (parryingFXCountdown > 0)
         {
-            parryingCountdown -= Time.deltaTime;
+            parryingFXCountdown -= Time.deltaTime;
             StartParryingEffect();
+            parrying = true;
         }
         else
         {
-            parrying = false;
             EndParryingEffect();
+            parrying = false;
         }
 
-        if (stunCountdown >= 0)
+        if (parryingCooldown > 0)
+        {
+            parryingCooldown -= Time.deltaTime;
+        }
+
+        if (stunCountdown > 0)
         {
             stunCountdown -= Time.deltaTime;
         }
         else
         {
             stunned = false;
-        }
-
-        if (awayCountdown >= 0)
-        {
-            awayCountdown -= Time.deltaTime;
         }
         
     }
@@ -168,10 +170,6 @@ public class Attractor : MonoBehaviour {
         float distance = direction.magnitude;
 
         float forceMagnitude = K * distance;
-        //if (awayCountdown <= 0)
-        //{
-        //    forceMagnitude += G * (rb.mass * rbToAttract.mass) / distance;
-        //}
 
         Vector2 force = direction.normalized * forceMagnitude;
 
@@ -180,6 +178,8 @@ public class Attractor : MonoBehaviour {
 
     public void Dodge(Vector2 dir)
     {
+        if (stunned || collidingWithPlayer) return;
+
         Vector2 dirToEnemy = GetDirToEnemy();
         rb.velocity = Vector2.zero;
         Vector2 direction = dir - (Vector2.Dot(dir, dirToEnemy)/ Vector2.Dot(dirToEnemy, dirToEnemy) * dirToEnemy);
@@ -188,7 +188,7 @@ public class Attractor : MonoBehaviour {
 
     public void Dash()
     {
-        if (!dashing && !blocking && !stunned)
+        if (!dashing && !blocking && !stunned && !collidingWithPlayer)
         {
             dashing = true;
             dashCooldown = dashTime;
@@ -200,11 +200,15 @@ public class Attractor : MonoBehaviour {
 
     public void Block()
     {
-        if (!stunned)
+        if (!stunned && !collidingWithPlayer)
         {
             blocking = true;
-            parrying = true;
-            parryingCountdown = parryingTime;
+            if (parryingCooldown <= 0)
+            {
+                parrying = true;
+                parryingCooldown = parryingCooldownTime;
+                parryingFXCountdown = parryingFXTime;
+            }
         }
     }
 
@@ -292,6 +296,7 @@ public class Attractor : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             StartCoroutine("Split");
+            collidingWithPlayer = true;
 
             if (dashing)
             {
@@ -322,7 +327,7 @@ public class Attractor : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision)
     {
         StopCoroutine("Split");
-        awayCountdown = timeBeforeGravityStart;
+        collidingWithPlayer = false;
     }
     
 
