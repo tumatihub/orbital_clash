@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 
     public float maxLife = 500;
     public float dashDamage = 50;
+    public float edgeDamage = 50;
 
     // Use this for initialization
     void Awake () {

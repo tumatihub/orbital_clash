@@ -323,6 +323,11 @@ public class Attractor : MonoBehaviour {
             }
         }
 
+        if (collision.gameObject.tag == "Borda")
+        {
+            TakeEdgeDamage();
+        }
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -338,6 +343,11 @@ public class Attractor : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
         StopCoroutine("Split");
+    }
+
+    private void TakeEdgeDamage()
+    {
+        ChangeLife(gameManager.edgeDamage);
     }
 
     private void AttackPushBack()
