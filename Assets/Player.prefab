@@ -105,7 +105,8 @@ MonoBehaviour:
   dashCooldown: 0
   blocking: 0
   parrying: 0
-  parryingTime: 0.5
+  parryingFXTime: 0.2
+  parryingCooldownTime: 1
   stunned: 0
   stopOrbitForce: 1000
   minForce: 100
