@@ -588,6 +588,12 @@ Prefab:
       propertyPath: blockCamShake_Amp
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+        type: 2}
+      propertyPath: dashOnDashParticlesPrefab
+      value: 
+      objectReference: {fileID: 198528485966212546, guid: 1b34569016bf7424183af0fb9aafe00f,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0
@@ -5023,6 +5029,12 @@ Prefab:
       propertyPath: blockCamShake_Amp
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+        type: 2}
+      propertyPath: dashOnDashParticlesPrefab
+      value: 
+      objectReference: {fileID: 198528485966212546, guid: 1b34569016bf7424183af0fb9aafe00f,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0

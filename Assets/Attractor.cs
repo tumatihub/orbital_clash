@@ -61,14 +61,19 @@ public class Attractor : MonoBehaviour {
     [Header("CamShake Parameters")]
     public GameObject camController;
     private CamShake camShake;
-    public float blockCamShake_Amp = 1f;
+    public float blockCamShake_Amp = 2f;
     public float blockCamShake_Freq = 1f;
     public float blockCamShake_Dur = .2f;
+    public float DashOnDashCamShake_Amp = 2f;
+    public float DashOnDashCamShake_Freq = 2f;
+    public float DashOnDashCamShake_Dur = .2f;
 
     [Header("Particles")]
     private ParticleSystem blockParticles;
     private ParticleSystem dashParticles;
     private ParticleSystem stunParticles;
+    public ParticleSystem dashOnDashParticlesPrefab;
+
 
     private void Awake()
     {
@@ -253,6 +258,9 @@ public class Attractor : MonoBehaviour {
         if (dashing)
         {
             DashOnDashPushBack();
+            var part = Instantiate(dashOnDashParticlesPrefab, transform.position, transform.rotation);
+            Destroy(part.gameObject, 1f);
+            camShake.Shake(DashOnDashCamShake_Dur, DashOnDashCamShake_Amp, DashOnDashCamShake_Freq);
             return AttackResult.ATTACK;
         }
         if (parrying)
