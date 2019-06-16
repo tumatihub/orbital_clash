@@ -14,8 +14,7 @@ public class Attractor : MonoBehaviour {
 
     public Slider lifeBar;
     public Color lifeBarColor;
-
-    private ParticleSystem blockParticles;
+    
     private float life;
 
     private GameManager gameManager;
@@ -66,6 +65,10 @@ public class Attractor : MonoBehaviour {
     public float blockCamShake_Freq = 1f;
     public float blockCamShake_Dur = .2f;
 
+    [Header("Particles")]
+    private ParticleSystem blockParticles;
+    private ParticleSystem dashParticles;
+
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -100,10 +103,7 @@ public class Attractor : MonoBehaviour {
 
         // Setup particles
         blockParticles = transform.Find("BlockParticles").GetComponent<ParticleSystem>();
-        if (blockParticles == null)
-        {
-            print("Missing BlockParticles");
-        }
+        dashParticles = transform.Find("DashParticles").GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -213,6 +213,7 @@ public class Attractor : MonoBehaviour {
 
             Vector2 direction = enemy.transform.position - transform.position;
             rb.AddForce(direction.normalized * dashImpulse, ForceMode2D.Impulse);
+            dashParticles.Play();
         }
     }
 

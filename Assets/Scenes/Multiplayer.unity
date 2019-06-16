@@ -583,6 +583,11 @@ Prefab:
       propertyPath: camController
       value: 
       objectReference: {fileID: 1786112415}
+    - target: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+        type: 2}
+      propertyPath: blockCamShake_Amp
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0
@@ -788,6 +793,48 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 317531168}
   m_CullTransparentMesh: 0
+--- !u!1001 &376152023
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1855125929}
+    m_Modifications:
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!4 &407106056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4636378482735606, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
@@ -1089,7 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  m_AmplitudeGain: 1
+  m_AmplitudeGain: 0
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &473357448
@@ -2047,6 +2094,48 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770883584}
   m_CullTransparentMesh: 0
+--- !u!1001 &777137343
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 407106056}
+    m_Modifications:
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529294699380400, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 31709f5a4501e3047a66bac3ae23c320, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &831048276
 GameObject:
   m_ObjectHideFlags: 0
@@ -4845,6 +4934,11 @@ Prefab:
       propertyPath: camController
       value: 
       objectReference: {fileID: 1786112415}
+    - target: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+        type: 2}
+      propertyPath: blockCamShake_Amp
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0
