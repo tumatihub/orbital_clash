@@ -68,6 +68,7 @@ public class Attractor : MonoBehaviour {
     [Header("Particles")]
     private ParticleSystem blockParticles;
     private ParticleSystem dashParticles;
+    private ParticleSystem stunParticles;
 
     private void Awake()
     {
@@ -104,6 +105,7 @@ public class Attractor : MonoBehaviour {
         // Setup particles
         blockParticles = transform.Find("BlockParticles").GetComponent<ParticleSystem>();
         dashParticles = transform.Find("DashParticles").GetComponent<ParticleSystem>();
+        stunParticles = transform.Find("StunParticles").GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -287,6 +289,7 @@ public class Attractor : MonoBehaviour {
         stunCountdown = stunTime;
         dashing = false;
         ReleaseBlock();
+        stunParticles.Play();
     }
 
     private void DamagePushBack()
