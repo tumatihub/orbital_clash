@@ -45,7 +45,9 @@ public class Attractor : MonoBehaviour {
     [SerializeField]
     private float stopOrbitForce = 1000;
 
-    public float minForce = 100, maxForce = 140;
+    [Header("Force/Impulse Parameters")]
+    public float minForce = 100; 
+    public float maxForce = 140;
     public float blockPushBackForce = 50;
     public float blockAttackPushBackForce = 100;
     public float damagePushBackForce = 140;
@@ -56,9 +58,17 @@ public class Attractor : MonoBehaviour {
     public float G = 1f;
     public float K = 10;
 
+    [Header("CamShake Parameters")]
+    public GameObject camController;
+    private CamShake camShake;
+    public float blockCamShake_Amp = 1f;
+    public float blockCamShake_Freq = 1f;
+    public float blockCamShake_Dur = .2f;
+
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        camShake = camController.GetComponent<CamShake>();
 
         // Setup
 
@@ -289,6 +299,7 @@ public class Attractor : MonoBehaviour {
         rb.velocity = Vector2.zero;
         float forceMagnitude = blockAttackPushBackForce;
         rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
+        camShake.Shake(blockCamShake_Dur, blockCamShake_Amp, blockCamShake_Freq);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
