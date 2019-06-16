@@ -11,7 +11,7 @@ public class AIController : MonoBehaviour {
     public float distanceToAct = 15;
     private float delayBetweenAction = .7f;
     private float countDown = 0;
-    private float chanceToBlock = .4f;
+    public float chanceToBlock = .4f;
     public float distanceToGoAgress = 20;
 
     public Color blockingColor;

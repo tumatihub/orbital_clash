@@ -15,6 +15,7 @@ public class Attractor : MonoBehaviour {
     public Slider lifeBar;
     public Color lifeBarColor;
 
+    private ParticleSystem blockParticles;
     private float life;
 
     private GameManager gameManager;
@@ -96,6 +97,13 @@ public class Attractor : MonoBehaviour {
         lifeBar.fillRect.GetComponent<Image>().color = lifeBarColor;
         life = gameManager.maxLife;
         UpdateLifeBar();
+
+        // Setup particles
+        blockParticles = transform.Find("BlockParticles").GetComponent<ParticleSystem>();
+        if (blockParticles == null)
+        {
+            print("Missing BlockParticles");
+        }
     }
 
     private void Update()
@@ -300,6 +308,7 @@ public class Attractor : MonoBehaviour {
         float forceMagnitude = blockAttackPushBackForce;
         rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
         camShake.Shake(blockCamShake_Dur, blockCamShake_Amp, blockCamShake_Freq);
+        blockParticles.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
