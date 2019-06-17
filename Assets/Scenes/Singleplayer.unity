@@ -522,6 +522,48 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6f9a48c4dd01d488e2de7ff25a0639, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &167266308
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 407106056}
+    m_Modifications:
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!114 &170561377 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114077023048739218, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
@@ -2685,6 +2727,48 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de30faa54bc211b47b0076d1786cd939, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1516839003
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1409535864}
+    m_Modifications:
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751162510389770, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 884d4af74d488f84d97c613fd85c27e3, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1668410462
 GameObject:

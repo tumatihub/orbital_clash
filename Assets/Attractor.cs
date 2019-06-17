@@ -67,11 +67,14 @@ public class Attractor : MonoBehaviour {
     public float DashOnDashCamShake_Amp = 2f;
     public float DashOnDashCamShake_Freq = 2f;
     public float DashOnDashCamShake_Dur = .2f;
+    public float CollidingCamShake_Amp = 1f;
+    public float CollidingCamShake_Freq = 5f;
 
     [Header("Particles")]
     private ParticleSystem blockParticles;
     private ParticleSystem dashParticles;
     private ParticleSystem stunParticles;
+    private ParticleSystem collidingParticles;
     public ParticleSystem dashOnDashParticlesPrefab;
 
 
@@ -111,6 +114,7 @@ public class Attractor : MonoBehaviour {
         blockParticles = transform.Find("BlockParticles").GetComponent<ParticleSystem>();
         dashParticles = transform.Find("DashParticles").GetComponent<ParticleSystem>();
         stunParticles = transform.Find("StunParticles").GetComponent<ParticleSystem>();
+        collidingParticles = transform.Find("CollidingParticles").GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -364,17 +368,23 @@ public class Attractor : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision)
     {
         StopCoroutine("Split");
+        collidingParticles.Stop();
+        camShake.StopCamShaking();
         collidingWithPlayer = false;
     }
     
 
     private IEnumerator Split()
     {
+        collidingParticles.Play();
+        camShake.StartCamShaking(CollidingCamShake_Amp, CollidingCamShake_Freq);
         float forceMagnitude = splitForce;
         yield return new WaitForSeconds(1);
         rb.velocity = Vector2.zero;
         rb.AddForce(GetDir().normalized * forceMagnitude, ForceMode2D.Impulse);
         StopCoroutine("Split");
+        collidingParticles.Stop();
+        camShake.StopCamShaking();
     }
 
     private void TakeEdgeDamage()

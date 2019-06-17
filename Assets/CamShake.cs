@@ -28,4 +28,15 @@ public class CamShake : MonoBehaviour {
         yield return new WaitForSeconds(shakeDuration);
         virtualCameraNoise.m_AmplitudeGain = 0f;
     }
+
+    public void StartCamShaking(float shakeAmplitude, float shakeFrequency)
+    {
+        virtualCameraNoise.m_AmplitudeGain = shakeAmplitude;
+        virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+    }
+
+    public void StopCamShaking()
+    {
+        virtualCameraNoise.m_AmplitudeGain = 0f;
+    }
 }
