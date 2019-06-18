@@ -41,6 +41,8 @@ public class AIController : MonoBehaviour {
 
     private void UpdateColor()
     {
+        if (attractor.takingDamage) return;
+
         if (attractor.blocking)
         {
             sprite.color = blockingColor;

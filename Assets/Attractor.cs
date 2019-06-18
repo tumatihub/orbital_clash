@@ -18,6 +18,8 @@ public class Attractor : MonoBehaviour {
     private float life;
 
     private GameManager gameManager;
+    private SpriteRenderer sprite;
+    private Color spriteColor;
 
     public string atk;
     public string def;
@@ -40,6 +42,11 @@ public class Attractor : MonoBehaviour {
     private float stunCountdown = 0;
 
     private bool collidingWithPlayer = false;
+
+    [HideInInspector]
+    public bool takingDamage = false;
+    public float damageTime = .5f;
+    public float damageCountdown = 0;
 
     private Vector2 previousPos = Vector2.zero;
     [SerializeField]
@@ -104,6 +111,8 @@ public class Attractor : MonoBehaviour {
         sword.transform.parent = transform;
         
         parrySprite = transform.Find("Parry").GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
+        spriteColor = sprite.color;
 
         // Setup lifeBar
         lifeBar.fillRect.GetComponent<Image>().color = lifeBarColor;
@@ -157,6 +166,16 @@ public class Attractor : MonoBehaviour {
             stunned = false;
         }
         
+        if (damageCountdown > 0)
+        {
+            damageCountdown -= Time.deltaTime;
+        }
+        else
+        {
+            takingDamage = false;
+            StopCoroutine("TakingDamageFX");
+            sprite.color = spriteColor;
+        }
     }
 
     private void FixedUpdate()
@@ -207,7 +226,7 @@ public class Attractor : MonoBehaviour {
 
     public void Dodge(Vector2 dir)
     {
-        if (stunned || collidingWithPlayer) return;
+        if (stunned || collidingWithPlayer || takingDamage) return;
 
         Vector2 dirToEnemy = GetDirToEnemy();
         rb.velocity = Vector2.zero;
@@ -217,7 +236,7 @@ public class Attractor : MonoBehaviour {
 
     public void Dash()
     {
-        if (!dashing && !blocking && !stunned && !collidingWithPlayer)
+        if (!dashing && !blocking && !stunned && !collidingWithPlayer && !takingDamage)
         {
             dashing = true;
             dashCooldown = dashTime;
@@ -230,7 +249,7 @@ public class Attractor : MonoBehaviour {
 
     public void Block()
     {
-        if (!stunned && !collidingWithPlayer)
+        if (!stunned && !collidingWithPlayer && !takingDamage)
         {
             blocking = true;
             if (parryingCooldown <= 0)
@@ -279,8 +298,23 @@ public class Attractor : MonoBehaviour {
         } else
         {
             DamagePushBack();
+            takingDamage = true;
+            damageCountdown = damageTime;
+            StartCoroutine("TakingDamageFX");
             ChangeLife(gameManager.dashDamage);
             return AttackResult.DAMAGED;
+        }
+    }
+
+    private IEnumerator TakingDamageFX()
+    {
+        for (; ; )
+        {
+            if (sprite.color == Color.white)
+                sprite.color = spriteColor;
+            else
+                sprite.color = Color.white;
+            yield return new WaitForSeconds(.2f);
         }
     }
 
@@ -390,6 +424,9 @@ public class Attractor : MonoBehaviour {
     private void TakeEdgeDamage()
     {
         ChangeLife(gameManager.edgeDamage);
+        takingDamage = true;
+        damageCountdown = damageTime;
+        StartCoroutine("TakingDamageFX");
     }
 
     private void AttackPushBack()

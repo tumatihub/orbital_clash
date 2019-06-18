@@ -108,6 +108,9 @@ MonoBehaviour:
   parryingFXTime: 0.2
   parryingCooldownTime: 1
   stunned: 0
+  takingDamage: 0
+  damageTime: 0.7
+  damageCountdown: 0
   stopOrbitForce: 1000
   minForce: 100
   maxForce: 140
@@ -119,6 +122,16 @@ MonoBehaviour:
   splitForce: 100
   G: 7
   K: 30
+  camController: {fileID: 0}
+  blockCamShake_Amp: 2
+  blockCamShake_Freq: 1
+  blockCamShake_Dur: 0.2
+  DashOnDashCamShake_Amp: 2
+  DashOnDashCamShake_Freq: 2
+  DashOnDashCamShake_Dur: 0.2
+  CollidingCamShake_Amp: 1
+  CollidingCamShake_Freq: 5
+  dashOnDashParticlesPrefab: {fileID: 0}
 --- !u!120 &120573277953055510
 LineRenderer:
   m_ObjectHideFlags: 1
