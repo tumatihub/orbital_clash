@@ -76,6 +76,9 @@ public class Attractor : MonoBehaviour {
     public float DashOnDashCamShake_Dur = .2f;
     public float CollidingCamShake_Amp = 1f;
     public float CollidingCamShake_Freq = 5f;
+    public float BorderCamShake_Amp = 2f;
+    public float BorderCamShake_Freq = 3f;
+    public float BorderCamShake_Dur = .2f;
 
     [Header("Particles")]
     private ParticleSystem blockParticles;
@@ -83,6 +86,7 @@ public class Attractor : MonoBehaviour {
     private ParticleSystem stunParticles;
     private ParticleSystem collidingParticles;
     public ParticleSystem dashOnDashParticlesPrefab;
+    public ParticleSystem borderParticlesPrefab;
 
 
     private void Awake()
@@ -396,9 +400,22 @@ public class Attractor : MonoBehaviour {
         if (collision.gameObject.tag == "Borda")
         {
             TakeEdgeDamage();
+            EdgeDamageFX(collision);
         }
 
     }
+
+    private void EdgeDamageFX(Collision2D collision)
+    {
+        Vector2 point = collision.contacts[0].point;
+        Vector2 pointNormal = collision.contacts[0].normal;
+        Quaternion rot = Quaternion.LookRotation(pointNormal);
+        var obj = Instantiate(borderParticlesPrefab, point, rot);
+        camShake.Shake(BorderCamShake_Dur, BorderCamShake_Amp, BorderCamShake_Freq);
+        Destroy(obj.gameObject, 1f);
+        return;
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         StopCoroutine("Split");

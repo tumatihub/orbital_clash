@@ -131,7 +131,13 @@ MonoBehaviour:
   DashOnDashCamShake_Dur: 0.2
   CollidingCamShake_Amp: 1
   CollidingCamShake_Freq: 5
-  dashOnDashParticlesPrefab: {fileID: 0}
+  BorderCamShake_Amp: 2
+  BorderCamShake_Freq: 5
+  BorderCamShake_Dur: 0.2
+  dashOnDashParticlesPrefab: {fileID: 198528485966212546, guid: 1b34569016bf7424183af0fb9aafe00f,
+    type: 2}
+  borderParticlesPrefab: {fileID: 198983043907002064, guid: c21bfbaf28bc50f4ea9a87e27f68357f,
+    type: 2}
 --- !u!120 &120573277953055510
 LineRenderer:
   m_ObjectHideFlags: 1
