@@ -10,6 +10,8 @@ public class Attractor : MonoBehaviour {
     public Rigidbody2D rb;
     public Attractor enemy;
 
+    private AudioSource audioSource;
+
     public Slider lifeBar;
     public Color lifeBarColor;
     
@@ -94,6 +96,10 @@ public class Attractor : MonoBehaviour {
     public ParticleSystem dashOnDashParticlesPrefab;
     public ParticleSystem borderParticlesPrefab;
 
+    [Header("SFX")]
+    public AudioClip[] dashSounds;
+    public AudioClip blockSound;
+    public AudioClip stunBlockSound;
 
     private void Awake()
     {
@@ -131,6 +137,9 @@ public class Attractor : MonoBehaviour {
         dashParticles = transform.Find("DashParticles").GetComponent<ParticleSystem>();
         stunParticles = transform.Find("StunParticles").GetComponent<ParticleSystem>();
         collidingParticles = transform.Find("CollidingParticles").GetComponent<ParticleSystem>();
+
+        //Audio
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -290,6 +299,7 @@ public class Attractor : MonoBehaviour {
 
             Vector2 direction = enemy.transform.position - transform.position;
             rb.AddForce(direction.normalized * dashImpulse, ForceMode2D.Impulse);
+            audioSource.PlayOneShot(dashSounds[Random.Range(0,dashSounds.Length-1)]);
             dashParticles.Play();
         }
     }
@@ -336,11 +346,13 @@ public class Attractor : MonoBehaviour {
         if (parrying)
         {
             BlockAttack();
+            audioSource.PlayOneShot(stunBlockSound);
             return AttackResult.PARRY;
         }
         if (blocking)
         {
             BlockAttack();
+            audioSource.PlayOneShot(blockSound);
             return AttackResult.BLOCK;
         } else
         {
