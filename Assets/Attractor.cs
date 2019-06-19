@@ -9,8 +9,6 @@ public class Attractor : MonoBehaviour {
 
     public Rigidbody2D rb;
     public Attractor enemy;
-    public GameObject swordPrefab;
-    public GameObject sword;
 
     public Slider lifeBar;
     public Color lifeBarColor;
@@ -44,6 +42,13 @@ public class Attractor : MonoBehaviour {
     private bool collidingWithPlayer = false;
 
     [HideInInspector]
+    public bool dodging = false;
+    private float dodgeCooldown = 2f;
+    private float dodgeCountdown = 0;
+    private float dodgeFXTime = .5f;
+    private float dodgeFXCountdown = 0;
+
+    [HideInInspector]
     public bool takingDamage = false;
     public float damageTime = .5f;
     public float damageCountdown = 0;
@@ -61,6 +66,7 @@ public class Attractor : MonoBehaviour {
     public float attackPushBackForce = 20;
     public float dashOnDashPushBack;
     public float splitForce = 100;
+    public float dodgeImpulse = 100;
 
     public float G = 1f;
     public float K = 10;
@@ -110,9 +116,6 @@ public class Attractor : MonoBehaviour {
 
     private void Start()
     {
-        sword = Instantiate(swordPrefab);
-        sword.transform.position = transform.position;
-        sword.transform.parent = transform;
         
         parrySprite = transform.Find("Parry").GetComponent<SpriteRenderer>();
         sprite = GetComponent<SpriteRenderer>();
@@ -135,25 +138,30 @@ public class Attractor : MonoBehaviour {
         //Lookat
         transform.right = enemy.transform.position - transform.position;
 
-        if (dashCooldown > 0)
+        if (dashing)
         {
-            dashCooldown -= Time.deltaTime;
-        }
-        else
-        {
-            dashing = false;
+            if (dashCooldown > 0)
+            {
+                dashCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                dashing = false;
+            }
         }
 
-        if (parryingFXCountdown > 0)
+        if (parrying)
         {
-            parryingFXCountdown -= Time.deltaTime;
-            StartParryingEffect();
-            parrying = true;
-        }
-        else
-        {
-            EndParryingEffect();
-            parrying = false;
+            if (parryingFXCountdown > 0)
+            {
+                parryingFXCountdown -= Time.deltaTime;
+                StartParryingEffect();
+            }
+            else
+            {
+                EndParryingEffect();
+                parrying = false;
+            }
         }
 
         if (parryingCooldown > 0)
@@ -161,24 +169,50 @@ public class Attractor : MonoBehaviour {
             parryingCooldown -= Time.deltaTime;
         }
 
-        if (stunCountdown > 0)
+        if (stunned)
         {
-            stunCountdown -= Time.deltaTime;
-        }
-        else
-        {
-            stunned = false;
+            if (stunCountdown > 0)
+            {
+                stunCountdown -= Time.deltaTime;
+            }
+            else
+            {
+                stunned = false;
+            }
         }
         
-        if (damageCountdown > 0)
+        if (takingDamage)
         {
-            damageCountdown -= Time.deltaTime;
+            if (damageCountdown > 0)
+            {
+                damageCountdown -= Time.deltaTime;
+            }
+            else
+            {
+                takingDamage = false;
+                StopCoroutine("TakingDamageFX");
+                sprite.color = spriteColor;
+            }
         }
-        else
+
+        if (dodging)
         {
-            takingDamage = false;
-            StopCoroutine("TakingDamageFX");
-            sprite.color = spriteColor;
+            if (dodgeCountdown > 0)
+            {
+                dodgeCountdown -= Time.deltaTime;
+            }
+            else
+            {
+                dodging = false;
+            }
+            if (dodgeFXCountdown > 0)
+            {
+                dodgeFXCountdown -= Time.deltaTime;
+            }
+            else
+            {
+                sprite.color = spriteColor;
+            }
         }
     }
 
@@ -230,12 +264,21 @@ public class Attractor : MonoBehaviour {
 
     public void Dodge(Vector2 dir)
     {
-        if (stunned || collidingWithPlayer || takingDamage) return;
+        if (stunned || collidingWithPlayer || takingDamage || dodging) return;
+
+        dodging = true;
+        dodgeCountdown = dodgeCooldown;
+        
+        // Dodge FX
+        Color dodgingColor = spriteColor;
+        dodgingColor.a = 0.3f;
+        sprite.color = dodgingColor;
+        dodgeFXCountdown = dodgeFXTime;
 
         Vector2 dirToEnemy = GetDirToEnemy();
         rb.velocity = Vector2.zero;
         Vector2 direction = dir - (Vector2.Dot(dir, dirToEnemy)/ Vector2.Dot(dirToEnemy, dirToEnemy) * dirToEnemy);
-        rb.AddForce(direction.normalized * 50, ForceMode2D.Impulse);
+        rb.AddForce(direction.normalized * dodgeImpulse, ForceMode2D.Impulse);
     }
 
     public void Dash()

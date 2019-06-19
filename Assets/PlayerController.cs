@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour {
 
     private void UpdateColor()
     {
-        if (attractor.takingDamage) return;
+        if (attractor.takingDamage || attractor.dodging) return;
 
         if (attractor.blocking)
         {
