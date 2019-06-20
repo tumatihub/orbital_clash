@@ -98,14 +98,23 @@ public class Attractor : MonoBehaviour {
 
     [Header("SFX")]
     public AudioClip[] dashSounds;
+    [Range(0, 1)] public float dashVolume = 1;
     public AudioClip blockSound;
+    [Range(0, 1)] public float blockVolume = 1;
     public AudioClip stunBlockSound;
+    [Range(0, 1)] public float stunBlockVolume = 1;
     public AudioClip dashOnDashSound;
+    [Range(0, 1)] public float dashOnDashVolume = 1;
     public AudioClip edgeSound;
+    [Range(0, 1)] public float edgeVolume = 1;
     public AudioClip stunSound;
+    [Range(0, 1)] public float stunVolume = 1;
     public AudioClip damageSound;
+    [Range(0, 1)] public float damageVolume = 1;
     public AudioClip collidingSound;
+    [Range(0, 1)] public float collidingVolume = 1;
     public AudioClip dodgeSound;
+    [Range(0, 1)] public float dodgeVolume = 1;
 
     private void Awake()
     {
@@ -241,7 +250,13 @@ public class Attractor : MonoBehaviour {
     void UpdateLifeBar()
     {
         lifeBar.value = life / gameManager.maxLife;
-    } 
+    }
+
+    void PlaySound(AudioSource source, AudioClip clip, float volume)
+    {
+        source.volume = volume;
+        source.PlayOneShot(clip);
+    }
 
     void StopOrbit()
     {
@@ -295,7 +310,7 @@ public class Attractor : MonoBehaviour {
         sprite.color = dodgingColor;
         dodgeFXCountdown = dodgeFXTime;
 
-        audioSource.PlayOneShot(dodgeSound);
+        PlaySound(audioSource, dodgeSound, dodgeVolume);
         Vector2 dirToEnemy = GetDirToEnemy();
         rb.velocity = Vector2.zero;
         Vector2 direction = dir - (Vector2.Dot(dir, dirToEnemy)/ Vector2.Dot(dirToEnemy, dirToEnemy) * dirToEnemy);
@@ -311,7 +326,7 @@ public class Attractor : MonoBehaviour {
 
             Vector2 direction = enemy.transform.position - transform.position;
             rb.AddForce(direction.normalized * dashImpulse, ForceMode2D.Impulse);
-            audioSource.PlayOneShot(dashSounds[Random.Range(0,dashSounds.Length-1)]);
+            PlaySound(audioSource, dashSounds[Random.Range(0, dashSounds.Length - 1)], dashVolume);
             dashParticles.Play();
         }
     }
@@ -353,19 +368,19 @@ public class Attractor : MonoBehaviour {
             var part = Instantiate(dashOnDashParticlesPrefab, transform.position, transform.rotation);
             Destroy(part.gameObject, 1f);
             camShake.Shake(DashOnDashCamShake_Dur, DashOnDashCamShake_Amp, DashOnDashCamShake_Freq);
-            audioSource.PlayOneShot(dashOnDashSound);
+            PlaySound(audioSource, dashOnDashSound, dashOnDashVolume);
             return AttackResult.ATTACK;
         }
         if (parrying)
         {
             BlockAttack();
-            audioSource.PlayOneShot(stunBlockSound);
+            PlaySound(audioSource, stunBlockSound, stunBlockVolume);
             return AttackResult.PARRY;
         }
         if (blocking)
         {
             BlockAttack();
-            audioSource.PlayOneShot(blockSound);
+            PlaySound(audioSource, blockSound, blockVolume);
             return AttackResult.BLOCK;
         } else
         {
@@ -374,7 +389,7 @@ public class Attractor : MonoBehaviour {
             damageCountdown = damageTime;
             StartCoroutine("TakingDamageFX");
             ChangeLife(gameManager.dashDamage);
-            audioSource.PlayOneShot(damageSound);
+            PlaySound(audioSource, damageSound, damageVolume);
             return AttackResult.DAMAGED;
         }
     }
@@ -408,7 +423,7 @@ public class Attractor : MonoBehaviour {
         stunCountdown = stunTime;
         dashing = false;
         ReleaseBlock();
-        audioSource.PlayOneShot(stunSound);
+        PlaySound(audioSource, stunSound, stunVolume);
         stunParticles.Play();
     }
 
@@ -473,7 +488,7 @@ public class Attractor : MonoBehaviour {
         {
             TakeEdgeDamage();
             EdgeDamageFX(collision);
-            audioSource.PlayOneShot(edgeSound);
+            PlaySound(audioSource, edgeSound, edgeVolume);
         }
 
     }
@@ -492,7 +507,6 @@ public class Attractor : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision)
     {
         StopCoroutine("Split");
-        //audioSource.Stop();
         collidingParticles.Stop();
         camShake.StopCamShaking();
         collidingWithPlayer = false;
@@ -504,8 +518,7 @@ public class Attractor : MonoBehaviour {
         rb.velocity = Vector2.zero;
         enemy.rb.velocity = Vector2.zero;
         collidingParticles.Play();
-        audioSource.clip = collidingSound;
-        audioSource.Play();
+        PlaySound(audioSource, collidingSound, collidingVolume);
         camShake.StartCamShaking(CollidingCamShake_Amp, CollidingCamShake_Freq);
         float forceMagnitude = splitForce;
         yield return new WaitForSeconds(1);
