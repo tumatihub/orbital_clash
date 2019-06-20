@@ -70,7 +70,7 @@ public class Attractor : MonoBehaviour {
     public float splitForce = 100;
     public float dodgeImpulse = 100;
 
-    public float G = 1f;
+    public float G = 5f;
     public float K = 10;
 
     [Header("CamShake Parameters")]
@@ -102,6 +102,10 @@ public class Attractor : MonoBehaviour {
     public AudioClip stunBlockSound;
     public AudioClip dashOnDashSound;
     public AudioClip edgeSound;
+    public AudioClip stunSound;
+    public AudioClip damageSound;
+    public AudioClip collidingSound;
+    public AudioClip dodgeSound;
 
     private void Awake()
     {
@@ -268,6 +272,11 @@ public class Attractor : MonoBehaviour {
 
         float forceMagnitude = K * distance;
 
+        if (collidingWithPlayer)
+        {
+            forceMagnitude += G * (rb.mass + enemy.rb.mass) / distance;
+        }
+
         Vector2 force = direction.normalized * forceMagnitude;
 
         rbToAttract.AddForce(force);
@@ -286,6 +295,7 @@ public class Attractor : MonoBehaviour {
         sprite.color = dodgingColor;
         dodgeFXCountdown = dodgeFXTime;
 
+        audioSource.PlayOneShot(dodgeSound);
         Vector2 dirToEnemy = GetDirToEnemy();
         rb.velocity = Vector2.zero;
         Vector2 direction = dir - (Vector2.Dot(dir, dirToEnemy)/ Vector2.Dot(dirToEnemy, dirToEnemy) * dirToEnemy);
@@ -364,6 +374,7 @@ public class Attractor : MonoBehaviour {
             damageCountdown = damageTime;
             StartCoroutine("TakingDamageFX");
             ChangeLife(gameManager.dashDamage);
+            audioSource.PlayOneShot(damageSound);
             return AttackResult.DAMAGED;
         }
     }
@@ -397,6 +408,7 @@ public class Attractor : MonoBehaviour {
         stunCountdown = stunTime;
         dashing = false;
         ReleaseBlock();
+        audioSource.PlayOneShot(stunSound);
         stunParticles.Play();
     }
 
@@ -427,9 +439,6 @@ public class Attractor : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            StartCoroutine("Split");
-            collidingWithPlayer = true;
-
             if (dashing)
             {
                 //dashing = false;
@@ -452,6 +461,11 @@ public class Attractor : MonoBehaviour {
                     BlockPushBack();
                     Stunned();
                 }
+            }
+            else if (!enemy.dashing && !stunned)
+            {
+                StartCoroutine("Split");
+                collidingWithPlayer = true;
             }
         }
 
@@ -478,6 +492,7 @@ public class Attractor : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision)
     {
         StopCoroutine("Split");
+        //audioSource.Stop();
         collidingParticles.Stop();
         camShake.StopCamShaking();
         collidingWithPlayer = false;
@@ -486,7 +501,11 @@ public class Attractor : MonoBehaviour {
 
     private IEnumerator Split()
     {
+        rb.velocity = Vector2.zero;
+        enemy.rb.velocity = Vector2.zero;
         collidingParticles.Play();
+        audioSource.clip = collidingSound;
+        audioSource.Play();
         camShake.StartCamShaking(CollidingCamShake_Amp, CollidingCamShake_Freq);
         float forceMagnitude = splitForce;
         yield return new WaitForSeconds(1);
