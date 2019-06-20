@@ -100,6 +100,8 @@ public class Attractor : MonoBehaviour {
     public AudioClip[] dashSounds;
     public AudioClip blockSound;
     public AudioClip stunBlockSound;
+    public AudioClip dashOnDashSound;
+    public AudioClip edgeSound;
 
     private void Awake()
     {
@@ -341,6 +343,7 @@ public class Attractor : MonoBehaviour {
             var part = Instantiate(dashOnDashParticlesPrefab, transform.position, transform.rotation);
             Destroy(part.gameObject, 1f);
             camShake.Shake(DashOnDashCamShake_Dur, DashOnDashCamShake_Amp, DashOnDashCamShake_Freq);
+            audioSource.PlayOneShot(dashOnDashSound);
             return AttackResult.ATTACK;
         }
         if (parrying)
@@ -456,6 +459,7 @@ public class Attractor : MonoBehaviour {
         {
             TakeEdgeDamage();
             EdgeDamageFX(collision);
+            audioSource.PlayOneShot(edgeSound);
         }
 
     }
