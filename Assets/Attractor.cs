@@ -119,7 +119,7 @@ public class Attractor : MonoBehaviour {
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        camShake = camController.GetComponent<CamShake>();
+        
 
         // Setup
 
@@ -141,6 +141,9 @@ public class Attractor : MonoBehaviour {
         parrySprite = transform.Find("Parry").GetComponent<SpriteRenderer>();
         sprite = GetComponent<SpriteRenderer>();
         spriteColor = sprite.color;
+
+        camController = GameObject.Find("CamShake");
+        camShake = camController.GetComponent<CamShake>();
 
         // Setup lifeBar
         lifeBar.fillRect.GetComponent<Image>().color = lifeBarColor;
@@ -289,7 +292,7 @@ public class Attractor : MonoBehaviour {
 
         if (collidingWithPlayer)
         {
-            forceMagnitude += G * (rb.mass + enemy.rb.mass) / distance;
+            //forceMagnitude += G * (rb.mass + enemy.rb.mass) / distance;
         }
 
         Vector2 force = direction.normalized * forceMagnitude;
@@ -477,10 +480,10 @@ public class Attractor : MonoBehaviour {
                     Stunned();
                 }
             }
-            else if (!enemy.dashing && !stunned)
+            else
             {
                 StartCoroutine("Split");
-                collidingWithPlayer = true;
+                
             }
         }
 
@@ -515,6 +518,8 @@ public class Attractor : MonoBehaviour {
 
     private IEnumerator Split()
     {
+        yield return new WaitForSeconds(.1f);
+        collidingWithPlayer = true;
         rb.velocity = Vector2.zero;
         enemy.rb.velocity = Vector2.zero;
         collidingParticles.Play();

@@ -338,6 +338,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21761267bd5f44d4bab59b2e625646b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMode: 0
+  playerPrefab: {fileID: 1500932272551256, guid: 1a6f9a48c4dd01d488e2de7ff25a0639,
+    type: 2}
+  p1: {fileID: 0}
+  p2: {fileID: 0}
+  menuManager: {fileID: 1214547695}
   dashTime: 0.5
   dashImpulse: 100
   blockPushBackForce: 50
@@ -349,6 +355,13 @@ MonoBehaviour:
   K: 20
   maxLife: 500
   dashDamage: 50
+  edgeDamage: 50
+  p1NeutralColor: {r: 0.1448469, g: 0.29288742, b: 0.990566, a: 1}
+  p1DashColor: {r: 0, g: 0.8174319, b: 1, a: 1}
+  p1BlockColor: {r: 0.0015574975, g: 0.0038680916, b: 0.3301887, a: 1}
+  p2NeutralColor: {r: 1, g: 0.10849059, b: 0.10849059, a: 1}
+  p2DashColor: {r: 0.990566, g: 0.501207, b: 0.4812656, a: 1}
+  p2BlockColor: {r: 0.5660378, g: 0.013349946, b: 0.013349946, a: 1}
 --- !u!224 &364360406
 RectTransform:
   m_ObjectHideFlags: 0
@@ -683,6 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b40b4745f32cb44ab61a3b7bf683096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 364360405}
 --- !u!224 &1214547696
 RectTransform:
   m_ObjectHideFlags: 0

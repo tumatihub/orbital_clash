@@ -4,15 +4,39 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
+    
+    //private static MenuManager instance = null;
+    private GameManager gameManager;
 
-	public void LoadSinglePlayer()
+    void Awake()
     {
-        SceneManager.LoadScene(1);
+
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
+    }
+
+    private void Start()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    public void LoadSinglePlayer()
+    {
+        gameManager.gameMode = GameManager.GameMode.SINGLE;
+        SceneManager.LoadScene(4);
     }
 
     public void LoadMultiPlayer()
     {
-        SceneManager.LoadScene(2);
+        gameManager.gameMode = GameManager.GameMode.MULTIPLAYER;
+        SceneManager.LoadScene(4);
     }
 
     public void LoadConfig()
