@@ -243,27 +243,33 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator StartLevelCountDown()
     {
-        GameObject counterObj = GameObject.Find("Counter");
+        GameObject counterObjP1 = GameObject.Find("Counter_P1");
+        GameObject counterObjP2 = GameObject.Find("Counter_P2");
 
-        var counter = counterObj.GetComponent<TextMeshProUGUI>();
-        counter.enabled = true;
+        var counterP1 = counterObjP1.GetComponent<TextMeshProUGUI>();
+        var counterP2 = counterObjP2.GetComponent<TextMeshProUGUI>();
+        counterP1.enabled = true;
+        counterP2.enabled = true;
 
         for (var i = 3; i>=0; i--)
         {
             print(i); // TODO: Transformar em UI
             if (i != 0)
             {
-                counter.SetText(i.ToString());
+                counterP1.SetText(i.ToString());
+                counterP2.SetText(i.ToString());
             }
             else
             {
-                counter.SetText("GO!");
+                counterP1.SetText("GO!");
+                counterP2.SetText("GO!");
             }
             yield return new WaitForSeconds(1);
         }
 
-        counter.enabled = false;
-        
+        counterP1.enabled = false;
+        counterP2.enabled = false;
+
         print("Start!!!");
 
         ActivateButtons("Control_P1");
@@ -285,15 +291,20 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator KO()
     {
-        GameObject counterObj = GameObject.Find("Counter");
+        GameObject counterObjP1 = GameObject.Find("Counter_P1");
+        GameObject counterObjP2 = GameObject.Find("Counter_P2");
 
-        var counter = counterObj.GetComponent<TextMeshProUGUI>();
-        counter.enabled = true;
+        var counterP1 = counterObjP1.GetComponent<TextMeshProUGUI>();
+        var counterP2 = counterObjP2.GetComponent<TextMeshProUGUI>();
+        counterP1.enabled = true;
+        counterP2.enabled = true;
 
-        counter.SetText("K.");
+        counterP1.SetText("K.");
+        counterP2.SetText("K.");
         yield return new WaitForSecondsRealtime(1f);
 
-        counter.SetText("K.O.!");
+        counterP1.SetText("K.O.!");
+        counterP2.SetText("K.O.!");
         yield return new WaitForSecondsRealtime(1f);
 
         RestartLevel();
