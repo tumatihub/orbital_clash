@@ -15,7 +15,7 @@ public class Attractor : MonoBehaviour {
     public Slider lifeBar;
     public Color lifeBarColor;
     
-    private float life;
+    public float life;
 
     private GameManager gameManager;
     private SpriteRenderer sprite;
