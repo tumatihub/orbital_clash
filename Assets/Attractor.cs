@@ -162,6 +162,8 @@ public class Attractor : MonoBehaviour {
 
     private void Update()
     {
+        if (gameManager.gameState == GameManager.GameState.PAUSE) return;
+
         //Lookat
         transform.right = enemy.transform.position - transform.position;
 
@@ -245,6 +247,8 @@ public class Attractor : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (gameManager.gameState == GameManager.GameState.PAUSE) return;
+
         Attract(enemy);
         StopOrbit();
         //transform.LookAt(enemy.transform);
@@ -411,12 +415,15 @@ public class Attractor : MonoBehaviour {
 
     private void ChangeLife(float amount)
     {
-        float newLifeValue = life - amount;
-        life = Mathf.Clamp(newLifeValue, 0, gameManager.maxLife);
-        UpdateLifeBar();
-        if (life == 0)
+        if (life > 0)
         {
-            gameManager.RestartLevel();
+            float newLifeValue = life - amount;
+            life = Mathf.Clamp(newLifeValue, 0, gameManager.maxLife);
+            UpdateLifeBar();
+            if (life == 0)
+            {
+                gameManager.EndLevel();
+            }
         }
     }
 

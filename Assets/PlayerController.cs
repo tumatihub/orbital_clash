@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     private Attractor attractor;
     private SpriteRenderer sprite;
+    private GameManager gameManager;
 
     public Camera cam;
 
@@ -27,10 +28,14 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         attractor = GetComponent<Attractor>();
         sprite = attractor.GetComponent<SpriteRenderer>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (gameManager.gameState == GameManager.GameState.PAUSE) return;
+
         #if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR
         if (Input.GetButtonDown(attractor.atk) && !attractor.dashing && !attractor.blocking)
         {

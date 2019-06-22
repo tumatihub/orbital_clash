@@ -11,6 +11,11 @@ public class LevelManager : MonoBehaviour {
 	void Start () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.SetupGameMode();
-	}
+
+        gameManager.DeactivateButtons("Control_P1");
+        gameManager.DeactivateButtons("Control_P2");
+
+        gameManager.StartLevel();
+    }
 	
 }

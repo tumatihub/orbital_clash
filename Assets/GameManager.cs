@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 using Cinemachine;
 using UnityEngine.EventSystems;
 
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour {
     private static GameManager instance = null;
     public enum GameMode { MULTIPLAYER, SINGLE }
     public GameMode gameMode;
+    public enum GameState { PLAY, PAUSE }
+    public GameState gameState = GameState.PAUSE;
 
     public GameObject playerPrefab;
     public GameObject p1;
@@ -60,6 +63,8 @@ public class GameManager : MonoBehaviour {
         Destroy(p1);
         Destroy(p2);
 
+        gameState = GameState.PAUSE;
+
         Transform p1Start = GameObject.Find("P1Start").transform;
         Transform p2Start = GameObject.Find("P2Start").transform;
 
@@ -102,7 +107,7 @@ public class GameManager : MonoBehaviour {
         if (gameMode == GameMode.SINGLE)
         {
             SetupAIController();
-            DeactivateAIButtons("Control_P2");
+            DeactivateButtons("Control_P2");
             print("Mode: SINGLEPLAYER");
         }
 
@@ -138,16 +143,42 @@ public class GameManager : MonoBehaviour {
         
     }
 
-    private void DeactivateAIButtons(string buttonContainer)
+    public void DeactivateButtons(string buttonContainer)
     {
-        Button p2AtkButton = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Button>();
-        Button p2DefButton = GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Button>();
-        p2AtkButton.enabled = false;
-        p2DefButton.enabled = false;
-        Color imageColor = Color.black;
+        Color imageColor;
+        GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<EventTrigger>().enabled = false;
+        GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<EventTrigger>().enabled = false;
+        Button pAtkButton = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Button>();
+        Button pDefButton = GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Button>();
+        pAtkButton.enabled = false;
+        pDefButton.enabled = false;
+        Image pAtkImage = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Image>();
+        imageColor = pAtkImage.color;
         imageColor.a = .1f;
-        GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Image>().color = imageColor;
-        GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Image>().color = imageColor;
+        pAtkImage.color = imageColor;
+        Image pDefImage = GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Image>();
+        imageColor = pDefImage.color;
+        imageColor.a = .1f;
+        pDefImage.color = imageColor;
+    }
+
+    public void ActivateButtons(string buttonContainer)
+    {
+        Color imageColor;
+        GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<EventTrigger>().enabled = true;
+        GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<EventTrigger>().enabled = true;
+        Button pAtkButton = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Button>();
+        Button pDefButton = GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Button>();
+        pAtkButton.enabled = true;
+        pDefButton.enabled = true;
+        Image pAtkImage = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Image>();
+        imageColor = pAtkImage.color;
+        imageColor.a = 1f;
+        pAtkImage.color = imageColor;
+        Image pDefImage = GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Image>();
+        imageColor = pDefImage.color;
+        imageColor.a = 1f;
+        pDefImage.color = imageColor;
     }
 
     private void SetupPlayer1Controller()
@@ -205,104 +236,92 @@ public class GameManager : MonoBehaviour {
         p2Controller.border = border;
     }
 
-    public void SetupSinglePlayerGameMode()
+    public void StartLevel()
     {
-        Transform p1Start = GameObject.Find("P1Start").transform;
-        Transform p2Start = GameObject.Find("P2Start").transform;
+        StartCoroutine("StartLevelCountDown");
+    }
 
-        p1 = Instantiate(playerPrefab, p1Start.position, Quaternion.identity);
-        p2 = Instantiate(playerPrefab, p2Start.position, Quaternion.identity);
+    private IEnumerator StartLevelCountDown()
+    {
+        GameObject counterObj = GameObject.Find("Counter");
 
-        PlayerController p1Controller = p1.AddComponent<PlayerController>();
-        AIController p2Controller = p2.AddComponent<AIController>();
-        Attractor p1Attractor = p1.GetComponent<Attractor>();
-        Attractor p2Attractor = p2.GetComponent<Attractor>();
+        var counter = counterObj.GetComponent<TextMeshProUGUI>();
+        counter.enabled = true;
 
-        // Setup Color
-        p1Controller.neutralColor = p1NeutralColor;
-        p1Controller.dashingColor = p1DashColor;
-        p1Controller.blockingColor = p1BlockColor;
-        p1.GetComponent<SpriteRenderer>().color = p1NeutralColor;
+        for (var i = 3; i>=0; i--)
+        {
+            print(i); // TODO: Transformar em UI
+            if (i != 0)
+            {
+                counter.SetText(i.ToString());
+            }
+            else
+            {
+                counter.SetText("GO!");
+            }
+            yield return new WaitForSeconds(1);
+        }
 
-        p2Controller.neutralColor = p2NeutralColor;
-        p2Controller.dashingColor = p2DashColor;
-        p2Controller.blockingColor = p2BlockColor;
-        p2.GetComponent<SpriteRenderer>().color = p2NeutralColor;
+        counter.enabled = false;
+        
+        print("Start!!!");
 
-        // LifeBar
-        Slider p1LifeBar = GameObject.Find("LifeBar_P1").GetComponent<Slider>();
-        Slider p2LifeBar = GameObject.Find("LifeBar_P2").GetComponent<Slider>();
+        ActivateButtons("Control_P1");
 
-        p1Attractor.lifeBar = p1LifeBar;
-        p2Attractor.lifeBar = p2LifeBar;
+        if (gameMode == GameMode.MULTIPLAYER)
+        {
+            ActivateButtons("Control_P2");
+        }
 
-        p1Attractor.lifeBarColor = p1NeutralColor;
-        p2Attractor.lifeBarColor = p2NeutralColor;
+        gameState = GameState.PLAY;
+    }
 
-        p1Attractor.enemy = p2Attractor;
-        p2Attractor.enemy = p1Attractor;
+    public void EndLevel()
+    {
+        IEnumerator coroutine = Slowmotion(2f, .1f);
+        StartCoroutine(coroutine);
+        StartCoroutine("KO");
+    }
 
-        p1Attractor.atk = "P1_atk";
-        p1Attractor.def = "P1_def";
+    private IEnumerator KO()
+    {
+        GameObject counterObj = GameObject.Find("Counter");
 
-        // Border
-        GameObject border = GameObject.Find("Border");
+        var counter = counterObj.GetComponent<TextMeshProUGUI>();
+        counter.enabled = true;
 
-        p1Controller.border = border;
-        p2Controller.border = border;
+        counter.SetText("K.");
+        yield return new WaitForSecondsRealtime(1f);
 
-        // Target Group for cinemachine
-        targetGroup = GameObject.Find("Target Group");
-        var group = targetGroup.GetComponent<CinemachineTargetGroup>();
-        group.m_Targets[0].target = p1.transform;
-        group.m_Targets[1].target = p2.transform;
+        counter.SetText("K.O.!");
+        yield return new WaitForSecondsRealtime(1f);
 
-        // Touch area
-        p1Controller.cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        p1Controller.touchMinX = .5f;
-        p1Controller.touchMaxX = .9f;
+        RestartLevel();
+    }
 
+    private IEnumerator Slowmotion(float duration, float scale)
+    {
+        float durationCount = duration;
+        float oldFixed = Time.fixedDeltaTime;
+        Time.fixedDeltaTime = scale * 0.02f;
+        Time.timeScale = scale;
 
-        // Button and event trigger
-        EventTrigger p1AtkEventTrigger = GameObject.Find("Control_P1").transform.Find("Atk").GetComponent<EventTrigger>();
-        EventTrigger p1DefEventTrigger = GameObject.Find("Control_P1").transform.Find("Def").GetComponent<EventTrigger>();
+        gameState = GameState.PAUSE;
 
-        EventTrigger.Entry entryDash = new EventTrigger.Entry();
-        entryDash.eventID = EventTriggerType.PointerDown;
-        entryDash.callback.AddListener((data) => { p1Attractor.Dash(); });
-        p1AtkEventTrigger.triggers.Add(entryDash);
+        while(durationCount > 0)
+        {
+            yield return new WaitForSecondsRealtime(.1f);
+            Time.timeScale += .1f;
+            Time.timeScale = Mathf.Clamp(Time.timeScale, 0, 1);
+            durationCount -= .1f;
+        }
 
-        EventTrigger.Entry entryBlock = new EventTrigger.Entry();
-        entryBlock.eventID = EventTriggerType.PointerDown;
-        entryBlock.callback.AddListener((data) => { p1Attractor.Block(); });
-        p1DefEventTrigger.triggers.Add(entryBlock);
-
-        EventTrigger.Entry entryReleaseBlock = new EventTrigger.Entry();
-        entryReleaseBlock.eventID = EventTriggerType.PointerUp;
-        entryReleaseBlock.callback.AddListener((data) => { p1Attractor.ReleaseBlock(); });
-        p1DefEventTrigger.triggers.Add(entryReleaseBlock);
-
-        Button p2AtkButton = GameObject.Find("Control_P2").transform.Find("Atk").GetComponent<Button>();
-        Button p2DefButton = GameObject.Find("Control_P2").transform.Find("Def").GetComponent<Button>();
-        p2AtkButton.enabled = false;
-        p2DefButton.enabled = false;
-        Color imageColor = Color.black;
-        imageColor.a = .1f;
-        GameObject.Find("Control_P2").transform.Find("Atk").GetComponent<Image>().color = imageColor;
-        GameObject.Find("Control_P2").transform.Find("Def").GetComponent<Image>().color = imageColor;
+        Time.fixedDeltaTime = oldFixed;
 
     }
 
     public void RestartLevel()
     {
-        print("Starting Coroutine");
-        StartCoroutine("RestartLevelCountDown");
-    }
-
-    private IEnumerator RestartLevelCountDown()
-    {
-        yield return new WaitForSeconds(1);
-        print("Reloading");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
