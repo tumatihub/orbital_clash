@@ -60,7 +60,7 @@ public class Attractor : MonoBehaviour {
 
     private Vector2 previousPos = Vector2.zero;
     [SerializeField]
-    private float stopOrbitForce = 1000;
+    private float stopOrbitForce = 40000;
 
     [Header("Force/Impulse Parameters")]
     public float minForce = 100; 
@@ -283,7 +283,7 @@ public class Attractor : MonoBehaviour {
 
         if (resultForce.magnitude >= .2f)
         {
-            rb.AddForce(resultForce * stopOrbitForce);
+            rb.AddForce(resultForce * stopOrbitForce * Time.fixedDeltaTime);
         }
         previousPos = actualPos;
     }
