@@ -10,6 +10,9 @@ public class Attractor : MonoBehaviour {
     public Rigidbody2D rb;
     public Attractor enemy;
 
+    [HideInInspector]
+    public Sprite neutralSprite;
+
     private AudioSource audioSource;
 
     public Slider lifeBar;
@@ -403,6 +406,7 @@ public class Attractor : MonoBehaviour {
 
     private IEnumerator TakingDamageFX()
     {
+        sprite.sprite = neutralSprite;
         for (; ; )
         {
             if (sprite.color == Color.white)

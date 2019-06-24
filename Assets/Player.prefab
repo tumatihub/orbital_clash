@@ -175,7 +175,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500932272551256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.5450172, y: -2.7567985, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
   - {fileID: 4776646120895638}
@@ -231,7 +231,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.018, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
 --- !u!82 &82262235592001828
@@ -344,6 +344,7 @@ MonoBehaviour:
   enemy: {fileID: 0}
   lifeBar: {fileID: 0}
   lifeBarColor: {r: 0, g: 0, b: 0, a: 0}
+  life: 0
   atk: 
   def: 
   dashTime: 1
@@ -19121,7 +19122,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: b8f7f64bc24a11a45a12ecb4849361f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

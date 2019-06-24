@@ -38,12 +38,20 @@ public class GameManager : MonoBehaviour {
     public float edgeDamage = 50;
 
     public Color p1NeutralColor;
+    public Sprite p1NeutralSprite;
     public Color p1DashColor;
+    public Sprite p1DashSprite;
     public Color p1BlockColor;
+    public Sprite p1BlockSprite;
+    public Sprite p1StunSprite;
 
     public Color p2NeutralColor;
+    public Sprite p2NeutralSprite;
     public Color p2DashColor;
+    public Sprite p2DashSprite;
     public Color p2BlockColor;
+    public Sprite p2BlockSprite;
+    public Sprite p2StunSprite;
 
     // Use this for initialization
     void Awake () {
@@ -75,6 +83,13 @@ public class GameManager : MonoBehaviour {
 
         Attractor p1Attractor = p1.GetComponent<Attractor>();
         Attractor p2Attractor = p2.GetComponent<Attractor>();
+
+        // Setup sprites
+
+        p1.GetComponent<SpriteRenderer>().sprite = p1NeutralSprite;
+        p2.GetComponent<SpriteRenderer>().sprite = p2NeutralSprite;
+        p1Attractor.neutralSprite = p1NeutralSprite;
+        p2Attractor.neutralSprite = p2NeutralSprite;
 
         // LifeBar
         Slider p1LifeBar = GameObject.Find("LifeBar_P1").GetComponent<Slider>();
@@ -191,6 +206,12 @@ public class GameManager : MonoBehaviour {
         p1Controller.blockingColor = p1BlockColor;
         p1.GetComponent<SpriteRenderer>().color = p1NeutralColor;
 
+        // Setup sprites
+        p1Controller.neutralSprite = p1NeutralSprite;
+        p1Controller.dashingSprite = p1DashSprite;
+        p1Controller.blockingSprite = p1BlockSprite;
+        p1Controller.stunSprite = p1StunSprite;
+
         // Border
         GameObject border = GameObject.Find("Border");
         p1Controller.border = border;
@@ -211,6 +232,12 @@ public class GameManager : MonoBehaviour {
         p2Controller.blockingColor = p2BlockColor;
         p2.GetComponent<SpriteRenderer>().color = p2NeutralColor;
 
+        // Setup sprites
+        p2Controller.neutralSprite = p2NeutralSprite;
+        p2Controller.dashingSprite = p2DashSprite;
+        p2Controller.blockingSprite = p2BlockSprite;
+        p2Controller.stunSprite = p2StunSprite;
+
         // Border
         GameObject border = GameObject.Find("Border");
         p2Controller.border = border;
@@ -230,6 +257,12 @@ public class GameManager : MonoBehaviour {
         p2Controller.dashingColor = p2DashColor;
         p2Controller.blockingColor = p2BlockColor;
         p2.GetComponent<SpriteRenderer>().color = p2NeutralColor;
+
+        // Setup sprites
+        p2Controller.neutralSprite = p2NeutralSprite;
+        p2Controller.dashingSprite = p2DashSprite;
+        p2Controller.blockingSprite = p2BlockSprite;
+        p2Controller.stunSprite = p2StunSprite;
 
         // Border
         GameObject border = GameObject.Find("Border");

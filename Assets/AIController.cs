@@ -19,6 +19,11 @@ public class AIController : MonoBehaviour {
     public Color dashingColor;
     public Color neutralColor;
 
+    public Sprite neutralSprite;
+    public Sprite dashingSprite;
+    public Sprite blockingSprite;
+    public Sprite stunSprite;
+
     // Use this for initialization
     void Start () {
         attractor = GetComponent<Attractor>();
@@ -50,19 +55,19 @@ public class AIController : MonoBehaviour {
 
         if (attractor.blocking)
         {
-            sprite.color = blockingColor;
+            sprite.sprite = blockingSprite;
         }
         else if (attractor.dashing)
         {
-            sprite.color = dashingColor;
+            sprite.sprite = dashingSprite;
         }
         else if (attractor.stunned)
         {
-            sprite.color = Color.black;
+            sprite.sprite = stunSprite;
         }
         else
         {
-            sprite.color = neutralColor;
+            sprite.sprite = neutralSprite;
         }
     }
 

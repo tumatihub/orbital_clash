@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour {
     public Color dashingColor;
     public Color neutralColor;
 
+    public Sprite neutralSprite;
+    public Sprite dashingSprite;
+    public Sprite blockingSprite;
+    public Sprite stunSprite;
+
     private Vector2 touchStart;
     private float minTouchDistance = 10f;
     [Range(0,1)] public float touchMinX;
@@ -138,19 +143,19 @@ public class PlayerController : MonoBehaviour {
 
         if (attractor.blocking)
         {
-            sprite.color = blockingColor;
+            sprite.sprite = blockingSprite;
         }
         else if (attractor.dashing)
         {
-            sprite.color = dashingColor;
+            sprite.sprite = dashingSprite;
         }
         else if (attractor.stunned)
         {
-            sprite.color = Color.black;
+            sprite.sprite = stunSprite;
         }
         else
         {
-            sprite.color = neutralColor;
+            sprite.sprite = neutralSprite;
         }
     }
 
