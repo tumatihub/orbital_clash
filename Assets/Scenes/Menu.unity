@@ -344,6 +344,18 @@ MonoBehaviour:
     type: 2}
   p1: {fileID: 0}
   p2: {fileID: 0}
+  p2GrayAtkButtonSprite: {fileID: 21300000, guid: b5736d60cdb604a4d99195b6a1a28058,
+    type: 3}
+  p2GrayDefButtonSprite: {fileID: 21300000, guid: 658a1009ae4730a4b9e6b2517c9dab3b,
+    type: 3}
+  p1GrayAtkButtonSprite: {fileID: 21300000, guid: ec1516be91a4e0e429eb2214a6b55b43,
+    type: 3}
+  p1GrayDefButtonSprite: {fileID: 21300000, guid: 364a73ef05ffc7b4ea8e552639752613,
+    type: 3}
+  p2AtkButtonSprite: {fileID: 21300000, guid: 1239731a9c3283b4f94b6c59d5fe8a7f, type: 3}
+  p2DefButtonSprite: {fileID: 21300000, guid: b48636f8d81069e4ca8d6dededf31611, type: 3}
+  p1AtkButtonSprite: {fileID: 21300000, guid: ffcc4e4ed8e291846858b1b6f3aa4696, type: 3}
+  p1DefButtonSprite: {fileID: 21300000, guid: 0cbf229a3ea7222409d083f71010cb34, type: 3}
   menuManager: {fileID: 1214547695}
   dashTime: 0.5
   dashImpulse: 100

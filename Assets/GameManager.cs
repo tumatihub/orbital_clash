@@ -19,6 +19,16 @@ public class GameManager : MonoBehaviour {
     public GameObject p1;
     public GameObject p2;
 
+    public Sprite p2GrayAtkButtonSprite;
+    public Sprite p2GrayDefButtonSprite;
+    public Sprite p1GrayAtkButtonSprite;
+    public Sprite p1GrayDefButtonSprite;
+
+    public Sprite p2AtkButtonSprite;
+    public Sprite p2DefButtonSprite;
+    public Sprite p1AtkButtonSprite;
+    public Sprite p1DefButtonSprite;
+
     public MenuManager menuManager;
 
     private GameObject targetGroup;
@@ -160,7 +170,7 @@ public class GameManager : MonoBehaviour {
 
     public void DeactivateButtons(string buttonContainer)
     {
-        Color imageColor;
+        //Color imageColor;
         GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<EventTrigger>().enabled = false;
         GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<EventTrigger>().enabled = false;
         Button pAtkButton = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Button>();
@@ -168,18 +178,31 @@ public class GameManager : MonoBehaviour {
         pAtkButton.enabled = false;
         pDefButton.enabled = false;
         Image pAtkImage = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Image>();
-        imageColor = pAtkImage.color;
-        imageColor.a = .1f;
-        pAtkImage.color = imageColor;
+        //imageColor = pAtkImage.color;
+        //imageColor.a = .1f;
+        //pAtkImage.color = imageColor;
         Image pDefImage = GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Image>();
-        imageColor = pDefImage.color;
-        imageColor.a = .1f;
-        pDefImage.color = imageColor;
+        //imageColor = pDefImage.color;
+        //imageColor.a = .1f;
+        //pDefImage.color = imageColor;
+        switch (buttonContainer)
+        {
+            case "Control_P1":
+                pAtkImage.sprite = p1GrayAtkButtonSprite;
+                pDefImage.sprite = p1GrayDefButtonSprite;
+                break;
+            case "Control_P2":
+                pAtkImage.sprite = p2GrayAtkButtonSprite;
+                pDefImage.sprite = p2GrayDefButtonSprite;
+                break;
+            default:
+                break;
+        }
     }
 
     public void ActivateButtons(string buttonContainer)
     {
-        Color imageColor;
+        //Color imageColor;
         GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<EventTrigger>().enabled = true;
         GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<EventTrigger>().enabled = true;
         Button pAtkButton = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Button>();
@@ -187,13 +210,26 @@ public class GameManager : MonoBehaviour {
         pAtkButton.enabled = true;
         pDefButton.enabled = true;
         Image pAtkImage = GameObject.Find(buttonContainer).transform.Find("Atk").GetComponent<Image>();
-        imageColor = pAtkImage.color;
-        imageColor.a = 1f;
-        pAtkImage.color = imageColor;
+        //imageColor = pAtkImage.color;
+        //imageColor.a = 1f;
+        //pAtkImage.color = imageColor;
         Image pDefImage = GameObject.Find(buttonContainer).transform.Find("Def").GetComponent<Image>();
-        imageColor = pDefImage.color;
-        imageColor.a = 1f;
-        pDefImage.color = imageColor;
+        //imageColor = pDefImage.color;
+        //imageColor.a = 1f;
+        //pDefImage.color = imageColor;
+        switch (buttonContainer)
+        {
+            case "Control_P1":
+                pAtkImage.sprite = p1AtkButtonSprite;
+                pDefImage.sprite = p1DefButtonSprite;
+                break;
+            case "Control_P2":
+                pAtkImage.sprite = p2AtkButtonSprite;
+                pDefImage.sprite = p2DefButtonSprite;
+                break;
+            default:
+                break;
+        }
     }
 
     private void SetupPlayer1Controller()
