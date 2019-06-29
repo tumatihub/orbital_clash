@@ -30,12 +30,14 @@ public class MenuManager : MonoBehaviour {
     public void LoadSinglePlayer()
     {
         gameManager.gameMode = GameManager.GameMode.SINGLE;
+        ChangeToFightMusic();
         SceneManager.LoadScene(4);
     }
 
     public void LoadMultiPlayer()
     {
         gameManager.gameMode = GameManager.GameMode.MULTIPLAYER;
+        ChangeToFightMusic();
         SceneManager.LoadScene(4);
     }
 
@@ -51,6 +53,16 @@ public class MenuManager : MonoBehaviour {
 
     public void MainMenu()
     {
+        gameManager.audioSource.Stop();
+        gameManager.audioSource.clip = gameManager.musicaMenu;
+        gameManager.audioSource.PlayDelayed(.5f);
         SceneManager.LoadScene(0);
+    }
+
+    private void ChangeToFightMusic()
+    {
+        gameManager.audioSource.Stop();
+        gameManager.audioSource.clip = gameManager.musicaLuta;
+        gameManager.audioSource.PlayDelayed(.2f);
     }
 }

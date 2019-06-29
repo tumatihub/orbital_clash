@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour {
     public enum GameState { PLAY, PAUSE }
     public GameState gameState = GameState.PAUSE;
 
+    public AudioSource audioSource;
+    public AudioClip musicaMenu;
+    public AudioClip musicaLuta;
+
     public GameObject playerPrefab;
     public GameObject p1;
     public GameObject p2;
@@ -75,6 +79,13 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = musicaMenu;
+        audioSource.Play();
+    }
 
     public void SetupGameMode()
     {
