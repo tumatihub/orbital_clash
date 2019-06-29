@@ -358,6 +358,7 @@ MonoBehaviour:
   parryingCooldownTime: 1
   stunned: 0
   dodging: 0
+  minDistToSlowDodge: 2
   takingDamage: 0
   damageTime: 0.7
   damageCountdown: 0
@@ -374,17 +375,17 @@ MonoBehaviour:
   G: 7
   K: 30
   camController: {fileID: 0}
-  blockCamShake_Amp: 2
-  blockCamShake_Freq: 1
-  blockCamShake_Dur: 0.2
-  DashOnDashCamShake_Amp: 2
-  DashOnDashCamShake_Freq: 2
-  DashOnDashCamShake_Dur: 0.2
+  blockCamShake_Amp: 5
+  blockCamShake_Freq: 3
+  blockCamShake_Dur: 1
+  DashOnDashCamShake_Amp: 10
+  DashOnDashCamShake_Freq: 10
+  DashOnDashCamShake_Dur: 1
   CollidingCamShake_Amp: 1
   CollidingCamShake_Freq: 5
-  BorderCamShake_Amp: 2
-  BorderCamShake_Freq: 5
-  BorderCamShake_Dur: 0.2
+  BorderCamShake_Amp: 10
+  BorderCamShake_Freq: 7
+  BorderCamShake_Dur: 1
   dashOnDashParticlesPrefab: {fileID: 198528485966212546, guid: 1b34569016bf7424183af0fb9aafe00f,
     type: 2}
   borderParticlesPrefab: {fileID: 198983043907002064, guid: c21bfbaf28bc50f4ea9a87e27f68357f,

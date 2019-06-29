@@ -52,6 +52,8 @@ public class Attractor : MonoBehaviour {
     private float dodgeCountdown = 0;
     private float dodgeFXTime = .5f;
     private float dodgeFXCountdown = 0;
+    [SerializeField]
+    private float minDistToSlowDodge = 2f;
 
     [HideInInspector]
     public bool takingDamage = false;
@@ -118,6 +120,7 @@ public class Attractor : MonoBehaviour {
     [Range(0, 1)] public float collidingVolume = 1;
     public AudioClip dodgeSound;
     [Range(0, 1)] public float dodgeVolume = 1;
+    
 
     private void Awake()
     {
@@ -240,11 +243,16 @@ public class Attractor : MonoBehaviour {
             if (dodgeFXCountdown > 0)
             {
                 dodgeFXCountdown -= Time.deltaTime;
+                if (GetDirToEnemy().magnitude <= minDistToSlowDodge && !gameManager.slow)
+                {
+                    IEnumerator coroutine = gameManager.Slowmotion(1f, .05f);
+                    StartCoroutine(coroutine);
+                }
             }
             else
             {
                 sprite.color = Color.white;
-            }
+            } 
         }
     }
 
@@ -312,6 +320,7 @@ public class Attractor : MonoBehaviour {
         if (stunned || collidingWithPlayer || takingDamage || dodging) return;
 
         dodging = true;
+
         dodgeCountdown = dodgeCooldown;
         
         // Dodge FX

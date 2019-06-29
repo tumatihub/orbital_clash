@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public enum GameState { PLAY, PAUSE }
     public GameState gameState = GameState.PAUSE;
 
+    public bool slow = false;
+
     public AudioSource audioSource;
     public AudioClip musicaMenu;
     public AudioClip musicaLuta;
@@ -365,6 +367,7 @@ public class GameManager : MonoBehaviour {
     public void EndLevel()
     {
         IEnumerator coroutine = Slowmotion(2f, .1f);
+        gameState = GameState.PAUSE;
         StartCoroutine(coroutine);
         StartCoroutine("KO");
     }
@@ -390,14 +393,14 @@ public class GameManager : MonoBehaviour {
         RestartLevel();
     }
 
-    private IEnumerator Slowmotion(float duration, float scale)
+    public IEnumerator Slowmotion(float duration, float scale)
     {
+        slow = true;
+
         float durationCount = duration;
         float oldFixed = Time.fixedDeltaTime;
         Time.fixedDeltaTime = scale * 0.02f;
         Time.timeScale = scale;
-
-        gameState = GameState.PAUSE;
 
         while(durationCount > 0)
         {
@@ -408,7 +411,7 @@ public class GameManager : MonoBehaviour {
         }
 
         Time.fixedDeltaTime = oldFixed;
-
+        slow = false;
     }
 
     public void RestartLevel()
