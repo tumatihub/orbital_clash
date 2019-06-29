@@ -143,7 +143,7 @@ public class Attractor : MonoBehaviour {
         
         parrySprite = transform.Find("Parry").GetComponent<SpriteRenderer>();
         sprite = GetComponent<SpriteRenderer>();
-        spriteColor = sprite.color;
+        spriteColor = lifeBarColor;
 
         camController = GameObject.Find("CamShake");
         camShake = camController.GetComponent<CamShake>();
@@ -223,7 +223,7 @@ public class Attractor : MonoBehaviour {
             {
                 takingDamage = false;
                 StopCoroutine("TakingDamageFX");
-                sprite.color = spriteColor;
+                sprite.color = Color.white;
             }
         }
 
@@ -243,7 +243,7 @@ public class Attractor : MonoBehaviour {
             }
             else
             {
-                sprite.color = spriteColor;
+                sprite.color = Color.white;
             }
         }
     }

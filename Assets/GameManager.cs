@@ -248,10 +248,10 @@ public class GameManager : MonoBehaviour {
         PlayerController p1Controller = p1.AddComponent<PlayerController>();
 
         // Setup Color
-        p1Controller.neutralColor = p1NeutralColor;
-        p1Controller.dashingColor = p1DashColor;
-        p1Controller.blockingColor = p1BlockColor;
-        p1.GetComponent<SpriteRenderer>().color = p1NeutralColor;
+        //p1Controller.neutralColor = p1NeutralColor;
+        //p1Controller.dashingColor = p1DashColor;
+        //p1Controller.blockingColor = p1BlockColor;
+        //p1.GetComponent<SpriteRenderer>().color = p1NeutralColor;
 
         // Setup sprites
         p1Controller.neutralSprite = p1NeutralSprite;
@@ -274,10 +274,10 @@ public class GameManager : MonoBehaviour {
         PlayerController p2Controller = p2.AddComponent<PlayerController>();
 
         // Setup Color
-        p2Controller.neutralColor = p2NeutralColor;
-        p2Controller.dashingColor = p2DashColor;
-        p2Controller.blockingColor = p2BlockColor;
-        p2.GetComponent<SpriteRenderer>().color = p2NeutralColor;
+        //p2Controller.neutralColor = p2NeutralColor;
+        //p2Controller.dashingColor = p2DashColor;
+        //p2Controller.blockingColor = p2BlockColor;
+        //p2.GetComponent<SpriteRenderer>().color = p2NeutralColor;
 
         // Setup sprites
         p2Controller.neutralSprite = p2NeutralSprite;
@@ -300,10 +300,10 @@ public class GameManager : MonoBehaviour {
         AIController p2Controller = p2.AddComponent<AIController>();
 
         // Setup Color
-        p2Controller.neutralColor = p2NeutralColor;
-        p2Controller.dashingColor = p2DashColor;
-        p2Controller.blockingColor = p2BlockColor;
-        p2.GetComponent<SpriteRenderer>().color = p2NeutralColor;
+        //p2Controller.neutralColor = p2NeutralColor;
+        //p2Controller.dashingColor = p2DashColor;
+        //p2Controller.blockingColor = p2BlockColor;
+        //p2.GetComponent<SpriteRenderer>().color = p2NeutralColor;
 
         // Setup sprites
         p2Controller.neutralSprite = p2NeutralSprite;
