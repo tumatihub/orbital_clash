@@ -268,6 +268,15 @@ public class Attractor : MonoBehaviour {
     void UpdateLifeBar()
     {
         lifeBar.value = life / gameManager.maxLife;
+        StartCoroutine("LifeBarFX");
+    }
+
+    private IEnumerator LifeBarFX()
+    {
+        Image fill = lifeBar.fillRect.GetComponent<Image>();
+        fill.color = Color.white;
+        yield return new WaitForSeconds(.1f);
+        fill.color = lifeBarColor;
     }
 
     void PlaySound(AudioSource source, AudioClip clip, float volume)
