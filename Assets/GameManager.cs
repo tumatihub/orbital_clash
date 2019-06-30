@@ -368,7 +368,8 @@ public class GameManager : MonoBehaviour {
     {
         IEnumerator coroutine = Slowmotion(2f, .1f);
         gameState = GameState.PAUSE;
-        StartCoroutine(coroutine);
+        if (!slow)
+            StartCoroutine(coroutine);
         StartCoroutine("KO");
     }
 
