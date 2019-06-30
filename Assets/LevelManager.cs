@@ -58,7 +58,6 @@ public class LevelManager : MonoBehaviour {
 
         actualSaturation += increment * Time.deltaTime + (actualSaturation/20)*Mathf.Sign(increment);
         actualSaturation = Mathf.Clamp(actualSaturation, 0, 1);
-        print(actualSaturation);
     }
 	
 }

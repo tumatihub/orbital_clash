@@ -56,6 +56,7 @@ public class MenuManager : MonoBehaviour {
         gameManager.audioSource.Stop();
         gameManager.audioSource.clip = gameManager.musicaMenu;
         gameManager.audioSource.PlayDelayed(.5f);
+        gameManager.ResetScore();
         SceneManager.LoadScene(0);
     }
 

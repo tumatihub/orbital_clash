@@ -435,7 +435,7 @@ public class Attractor : MonoBehaviour {
             UpdateLifeBar();
             if (life == 0)
             {
-                gameManager.EndLevel();
+                gameManager.EndLevel(gameObject);
             }
         }
     }

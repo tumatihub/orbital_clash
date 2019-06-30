@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour {
     public GameObject p1;
     public GameObject p2;
 
+    private Image[] p1ScoreImages = new Image[2];
+    private Image[] p2ScoreImages = new Image[2];
+    private int p1Score = 0;
+    private int p2Score = 0;
+
+
     public Sprite p2GrayAtkButtonSprite;
     public Sprite p2GrayDefButtonSprite;
     public Sprite p1GrayAtkButtonSprite;
@@ -127,6 +133,22 @@ public class GameManager : MonoBehaviour {
         p1Attractor.enemy = p2Attractor;
         p2Attractor.enemy = p1Attractor;
 
+        // Score
+        p1ScoreImages[0] = GameObject.Find("Score_P1").transform.Find("S_1").GetComponent<Image>();
+        p1ScoreImages[1] = GameObject.Find("Score_P1").transform.Find("S_2").GetComponent<Image>();
+        p2ScoreImages[0] = GameObject.Find("Score_P2").transform.Find("S_1").GetComponent<Image>();
+        p2ScoreImages[1] = GameObject.Find("Score_P2").transform.Find("S_2").GetComponent<Image>();
+
+        var alphaColor = Color.white;
+        alphaColor.a = .1f;
+
+        for (var i = 0; i <= 1; i++)
+        {
+            p1ScoreImages[i].color = alphaColor;
+            p2ScoreImages[i].color = alphaColor;
+        }
+        UpdateScore();
+
         // Inputs
         p1Attractor.atk = "P1_atk";
         p1Attractor.def = "P1_def";
@@ -154,6 +176,29 @@ public class GameManager : MonoBehaviour {
             SetupPlayer2Controller();
             SetupButtons(p2Attractor, "Control_P2");
             print("Mode: MULTIPLAYER");
+        }
+    }
+
+    private void UpdateScore()
+    {
+        var noAlphaColor = Color.white;
+        noAlphaColor.a = 1f;
+
+        //P1
+        if (p1Score > 0)
+        {
+            for (var i = 0; i <= p1Score-1; i++)
+            {
+                p1ScoreImages[i].color = noAlphaColor;
+            }
+        }
+        //P2
+        if (p2Score > 0)
+        {
+            for (var i = 0; i <= p2Score-1; i++)
+            {
+                p2ScoreImages[i].color = noAlphaColor;
+            }
         }
     }
 
@@ -364,13 +409,25 @@ public class GameManager : MonoBehaviour {
         gameState = GameState.PLAY;
     }
 
-    public void EndLevel()
+    public void EndLevel(GameObject looser)
     {
-        IEnumerator coroutine = Slowmotion(2f, .1f);
+        if (gameState == GameState.PAUSE) return;
+
         gameState = GameState.PAUSE;
+        IEnumerator coroutine = Slowmotion(2f, .1f);
         if (!slow)
             StartCoroutine(coroutine);
         StartCoroutine("KO");
+
+        if (looser == p1)
+        {
+            p2Score += 1;
+        }
+        else if (looser == p2)
+        {
+            p1Score += 1;
+        }
+        UpdateScore();
     }
 
     private IEnumerator KO()
@@ -391,7 +448,23 @@ public class GameManager : MonoBehaviour {
         counterP2.SetText("K.O.!");
         yield return new WaitForSecondsRealtime(1f);
 
-        RestartLevel();
+        if (p1Score >= 2 || p2Score >= 2)
+        {
+            EndGame();
+        }
+        else
+        {
+            RestartLevel();
+        }
+    }
+
+    private void EndGame()
+    {
+        SceneManager.LoadScene(0); // TODO: Tela de vitória
+        audioSource.Stop();
+        audioSource.clip = musicaMenu;
+        audioSource.PlayDelayed(.5f);
+        ResetScore();
     }
 
     public IEnumerator Slowmotion(float duration, float scale)
@@ -418,5 +491,11 @@ public class GameManager : MonoBehaviour {
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ResetScore()
+    {
+        p1Score = 0;
+        p2Score = 0;
     }
 }
