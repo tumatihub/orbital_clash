@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour {
 
     private Image[] p1ScoreImages = new Image[2];
     private Image[] p2ScoreImages = new Image[2];
-    private int p1Score = 0;
-    private int p2Score = 0;
+    public int p1Score = 0;
+    public int p2Score = 0;
 
 
     public Sprite p2GrayAtkButtonSprite;
@@ -460,11 +460,7 @@ public class GameManager : MonoBehaviour {
 
     private void EndGame()
     {
-        SceneManager.LoadScene(0); // TODO: Tela de vitória
-        audioSource.Stop();
-        audioSource.clip = musicaMenu;
-        audioSource.PlayDelayed(.5f);
-        ResetScore();
+        SceneManager.LoadScene(5);
     }
 
     public IEnumerator Slowmotion(float duration, float scale)
