@@ -180,7 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sair
+  m_Text: Quit
 --- !u!222 &211772792
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -341,6 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMode: 0
   gameState: 1
+  slow: 0
   audioSource: {fileID: 0}
   musicaMenu: {fileID: 8300000, guid: 796e3706af11d6249918541f87c74e9b, type: 3}
   musicaLuta: {fileID: 8300000, guid: f6897f282ae624c44ab12e9ad8317f3e, type: 3}
@@ -348,6 +349,8 @@ MonoBehaviour:
     type: 2}
   p1: {fileID: 0}
   p2: {fileID: 0}
+  p1Score: 0
+  p2Score: 0
   p2GrayAtkButtonSprite: {fileID: 21300000, guid: b5736d60cdb604a4d99195b6a1a28058,
     type: 3}
   p2GrayDefButtonSprite: {fileID: 21300000, guid: 658a1009ae4730a4b9e6b2517c9dab3b,
@@ -567,7 +570,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1 Jogador
+  m_Text: 1 Player
 --- !u!222 &528166918
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -970,7 +973,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2 Jogadores
+  m_Text: 2 Players
 --- !u!222 &1422098532
 CanvasRenderer:
   m_ObjectHideFlags: 0
