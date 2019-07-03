@@ -152,9 +152,17 @@ public class GameManager : MonoBehaviour {
         // Inputs
         p1Attractor.atk = "P1_atk";
         p1Attractor.def = "P1_def";
+        p1Attractor.up = "P1_UP";
+        p1Attractor.down = "P1_DOWN";
+        p1Attractor.left = "P1_LEFT";
+        p1Attractor.right = "P1_RIGHT";
 
         p2Attractor.atk = "P2_atk";
         p2Attractor.def = "P2_def";
+        p2Attractor.up = "P2_UP";
+        p2Attractor.down = "P2_DOWN";
+        p2Attractor.left = "P2_LEFT";
+        p2Attractor.right = "P2_RIGHT";
 
         // Target Group for cinemachine
         targetGroup = GameObject.Find("Target Group");

@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 
         if (gameManager.gameState == GameManager.GameState.PAUSE) return;
 
-        #if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR
+        #if UNITY_STANDALONE || UNITY_WEBGL || UNITY_EDITOR
         if (Input.GetButtonDown(attractor.atk) && !attractor.dashing && !attractor.blocking)
         {
             attractor.Dash();
@@ -58,19 +58,19 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Simular swipe com as setas do teclado
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetButtonDown(attractor.up))
         {
             attractor.Dodge(new Vector2(0, 1));
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetButtonDown(attractor.right))
         {
             attractor.Dodge(new Vector2(1, 0));
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetButtonDown(attractor.down))
         {
             attractor.Dodge(new Vector2(0, -1));
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetButtonDown(attractor.left))
         {
             attractor.Dodge(new Vector2(-1, 0));
         }

@@ -24,8 +24,13 @@ public class Attractor : MonoBehaviour {
     private SpriteRenderer sprite;
     private Color spriteColor;
 
+    // Inputs
     public string atk;
     public string def;
+    public string up;
+    public string down;
+    public string left;
+    public string right;
 
     public float dashTime = .5f;
     public float dashImpulse = 100;
