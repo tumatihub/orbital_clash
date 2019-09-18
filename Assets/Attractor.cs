@@ -31,6 +31,8 @@ public class Attractor : MonoBehaviour {
     public string down;
     public string left;
     public string right;
+    public string joyVertical;
+    public string joyHorizontal;
 
     public float dashTime = .5f;
     public float dashImpulse = 100;

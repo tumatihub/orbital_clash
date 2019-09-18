@@ -27,6 +27,26 @@ public class MenuManager : MonoBehaviour {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("J_START"))
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                LoadMultiPlayer();
+            }
+        }
+        else if (Input.GetButtonDown("J_BACK"))
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+                LoadSinglePlayer();
+        }
+        else if (Input.GetButtonDown("J_LB"))
+        {
+            MainMenu();
+        }
+    }
+
     public void LoadSinglePlayer()
     {
         gameManager.gameMode = GameManager.GameMode.SINGLE;

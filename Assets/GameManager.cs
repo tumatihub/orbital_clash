@@ -156,6 +156,8 @@ public class GameManager : MonoBehaviour {
         p1Attractor.down = "P1_DOWN";
         p1Attractor.left = "P1_LEFT";
         p1Attractor.right = "P1_RIGHT";
+        p1Attractor.joyVertical = "J1_VERT";
+        p1Attractor.joyHorizontal = "J1_HORIZ";
 
         p2Attractor.atk = "P2_atk";
         p2Attractor.def = "P2_def";
@@ -163,6 +165,8 @@ public class GameManager : MonoBehaviour {
         p2Attractor.down = "P2_DOWN";
         p2Attractor.left = "P2_LEFT";
         p2Attractor.right = "P2_RIGHT";
+        p2Attractor.joyVertical = "J2_VERT";
+        p2Attractor.joyHorizontal = "J2_HORIZ";
 
         // Target Group for cinemachine
         targetGroup = GameObject.Find("Target Group");

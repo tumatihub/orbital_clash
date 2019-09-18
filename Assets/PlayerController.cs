@@ -58,20 +58,26 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Simular swipe com as setas do teclado
-        if (Input.GetButtonDown(attractor.up))
+        if (Input.GetButtonDown(attractor.up) || Input.GetAxisRaw(attractor.joyVertical) == 1f)
         {
+            print("UP");
+            print(Input.GetAxis(attractor.joyVertical));
             attractor.Dodge(new Vector2(0, 1));
         }
-        else if (Input.GetButtonDown(attractor.right))
+        else if (Input.GetButtonDown(attractor.right) || Input.GetAxisRaw(attractor.joyHorizontal) == 1f)
         {
+            print("RIGHT");
+            print(Input.GetAxis(attractor.joyHorizontal));
             attractor.Dodge(new Vector2(1, 0));
         }
-        else if (Input.GetButtonDown(attractor.down))
+        else if (Input.GetButtonDown(attractor.down) || Input.GetAxisRaw(attractor.joyVertical) == -1f)
         {
+            print("DOWN");
             attractor.Dodge(new Vector2(0, -1));
         }
-        else if (Input.GetButtonDown(attractor.left))
+        else if (Input.GetButtonDown(attractor.left) || Input.GetAxisRaw(attractor.joyHorizontal) == -1f)
         {
+            print("LEFT");
             attractor.Dodge(new Vector2(-1, 0));
         }
 
